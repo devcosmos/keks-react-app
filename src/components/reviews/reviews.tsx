@@ -1,6 +1,6 @@
 import Review from '../review/review';
 
-function Reviews() {
+function Reviews(): JSX.Element {
   return (
     <section className="comments">
       <h2 className="visually-hidden">Список комментариев</h2>

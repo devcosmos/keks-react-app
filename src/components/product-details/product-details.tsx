@@ -1,4 +1,4 @@
-function ProductDetails() {
+function ProductDetails(): JSX.Element {
   return (
     <section className="item-details item-details--form-open">
       <div className="container">

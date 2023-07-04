@@ -1,4 +1,4 @@
-function ReviewForm() {
+function ReviewForm(): JSX.Element {
   return (
     <section className="review-form">
       <div className="container">

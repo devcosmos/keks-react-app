@@ -1,4 +1,4 @@
-function Review() {
+function Review(): JSX.Element {
   return (
     <div className="review">
       <div className="review__inner-wrapper">

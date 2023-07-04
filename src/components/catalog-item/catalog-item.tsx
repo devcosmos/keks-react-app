@@ -1,4 +1,4 @@
-function CatalogItem() {
+function CatalogItem(): JSX.Element {
   return (
     <li className="catalog__item">
       <div className="card-item card-item--big">

@@ -4,9 +4,9 @@ import ReviewFilterSort from '../../components/review-filter-sort/review-filter-
 import ReviewForm from '../../components/review-form/review-form';
 import Reviews from '../../components/reviews/reviews';
 
-function Product() {
+function Product(): JSX.Element {
   return (
-    <Layout heading="Карточка: пользователь авторизован">
+    <Layout heading="Карточка: пользователь авторизован" backLink footer>
       <>
         <ProductDetails />
         <ReviewForm />

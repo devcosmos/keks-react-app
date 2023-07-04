@@ -1,32 +1,24 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import BackLink from '../back-link/back-link';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 
 type LayoutProps = {
   children: JSX.Element;
-  heading: string;
+  heading?: string;
+  backLink?: boolean;
+  footer?: boolean;
 }
 
-function Layout({children, heading}: LayoutProps) {
+function Layout({children, heading, backLink, footer}: LayoutProps): JSX.Element {
   return (
     <div className="wrapper">
       <Header />
       <main>
-        <h1 className="visually-hidden">{heading}</h1>
-        <div className="back-link">
-          <div className="container">
-            <Link className="back-link__link" to={AppRoute.Main}>
-              Назад
-              <svg className="back-link__icon" width="30" height="16" aria-hidden="true">
-                <use xlinkHref="#icon-arrow-left" />
-              </svg>
-            </Link>
-          </div>
-        </div>
+        {heading && <h1 className="visually-hidden">{heading}</h1>}
+        {backLink && <BackLink />}
         {children}
       </main>
-      <Footer />
+      {footer && <Footer />}
     </div>
   );
 }

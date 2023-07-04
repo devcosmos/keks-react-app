@@ -1,25 +1,13 @@
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
-import CatalogItem from '../../components/catalog-item/catalog-item';
+import CatalogList from '../../components/catalog-list/catalog-list';
 import Layout from '../../components/layout/layout';
 
-function Catalog() {
+function Catalog(): JSX.Element {
   return (
-    <Layout heading="Каталог товаров">
+    <Layout heading="Каталог товаров" backLink footer>
       <>
         <CatalogFilter />
-        <section className="catalog">
-          <div className="container">
-            <h2 className="visually-hidden">Каталог</h2>
-            <div className="catalog__wrapper">
-              <ul className="catalog__list">
-                <CatalogItem />
-              </ul>
-              <div className="catalog__button-wrapper">
-                <button className="btn btn--second" type="button">Показать еще</button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CatalogList />
       </>
     </Layout>
   );
