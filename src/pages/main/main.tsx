@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
 import CardItem from '../../components/card-item/card-item';
 import Hero from '../../components/hero/hero';
 import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
 import Review from '../../components/review/review';
+import { AppRoute } from '../../consts';
 
 function Main(): JSX.Element {
   return (
@@ -23,7 +25,7 @@ function Main(): JSX.Element {
                 <CardItem />
               </li>
               <li className="random-main__item">
-                <a className="random-main__link" href="#">
+                <Link className="random-main__link" to={AppRoute.Catalog}>
                   <div className="random-main__icon-wrapper">
                     <div className="random-main__icon">
                       <svg width="120" height="130" aria-hidden="true">
@@ -32,7 +34,7 @@ function Main(): JSX.Element {
                     </div>
                   </div>
                   <h3 className="random-main__subtitle">Все кексы</h3>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
