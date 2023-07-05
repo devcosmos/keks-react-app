@@ -1,6 +1,6 @@
 import { AuthStatus } from '../consts';
 import { store } from '../store';
-import { UserData } from './data';
+import { UserData } from './users';
 import { Products } from './products';
 
 export type State = ReturnType<typeof store.getState>;
