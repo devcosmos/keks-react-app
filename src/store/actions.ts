@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Products } from '../types/products';
+import { AppRoute } from '../consts';
 
-export const changeFilterBase = createAction<string>('catalog/changeFilterBase');
-export const loadProducts = createAction<Products>('data/loadProducts');
+export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
