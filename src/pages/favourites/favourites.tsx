@@ -1,4 +1,4 @@
-import CatalogList from '../../components/catalog-list/catalog-list';
+// import CatalogList from '../../components/catalog-list/catalog-list';
 import FavouritesQuantity from '../../components/favourites-quantity/favourites-quantity';
 import Layout from '../../components/layout/layout';
 
@@ -14,7 +14,7 @@ function Favourites(): JSX.Element {
               <button className="btn btn--second" type="button">Очистить</button>
             </div>
           </div>
-          <CatalogList />
+          {/* <CatalogList /> */}
         </section>
       </>
     </Layout>
