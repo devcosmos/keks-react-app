@@ -6,3 +6,5 @@ export enum AppRoute {
   Login = '/login',
   Signup = '/signup',
 }
+
+export const BASICS = ['Бисквит', 'Десерт', 'Чизкейк', 'Песочное'];

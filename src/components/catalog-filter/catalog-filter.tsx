@@ -1,22 +1,35 @@
+import classNames from 'classnames';
+import { BASICS } from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeFilterBase } from '../../store/actions';
+
 function CatalogFilter(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const activeBase = useAppSelector((state) => state.filterBase);
+
   return (
     <div className="catalog-filter">
       <div className="container">
         <div className="catalog-filter__first-level">
           <h3 className="catalog-filter__title catalog-filter__title--first-level">основы</h3>
           <ul className="catalog-filter__list catalog-filter__list--first-level">
-            <li className="catalog-filter__item catalog-filter__item--first-level">
-              <button className="btn btn--filter-first-level" type="button">Бисквит</button>
-            </li>
-            <li className="catalog-filter__item catalog-filter__item--first-level">
-              <button className="btn btn--filter-first-level" type="button">Десерт</button>
-            </li>
-            <li className="catalog-filter__item catalog-filter__item--first-level">
-              <button className="btn btn--filter-first-level" type="button">Чизкейк</button>
-            </li>
-            <li className="catalog-filter__item catalog-filter__item--first-level">
-              <button className="btn btn--filter-first-level" type="button">Песочное</button>
-            </li>
+            {BASICS.map((base) => (
+              <li key={base} className="catalog-filter__item catalog-filter__item--first-level">
+                <button
+                  type="button"
+                  className={classNames(
+                    'btn btn--filter-first-level',
+                    {'is-active': activeBase === base}
+                  )}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(changeFilterBase(base));
+                  }}
+                >
+                  {base}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
