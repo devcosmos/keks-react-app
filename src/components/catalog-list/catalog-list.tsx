@@ -1,18 +1,22 @@
+import { Products } from '../../types/products';
 import CardItem from '../card-item/card-item';
 
-function CatalogList(): JSX.Element {
+type CatalogListProps = {
+  products: Products;
+}
+
+function CatalogList({products}: CatalogListProps): JSX.Element {
   return (
     <section className="catalog">
       <div className="container">
         <h2 className="visually-hidden">Каталог</h2>
         <div className="catalog__wrapper">
           <ul className="catalog__list">
-            <li className="catalog__item">
-              <CardItem />
-            </li>
-            <li className="catalog__item">
-              <CardItem />
-            </li>
+            {products.map((product) => (
+              <li key={product.id} className="catalog__item">
+                <CardItem product={product} isBigCard/>
+              </li>
+            ))}
           </ul>
           <div className="catalog__button-wrapper">
             <button className="btn btn--second" type="button">Показать еще</button>

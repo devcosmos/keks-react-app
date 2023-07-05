@@ -1,28 +1,43 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
+import { Product } from '../../types/products';
+import { formatPrice } from '../utils';
+import classNames from 'classnames';
 
-function CardItem(): JSX.Element {
+type CardItemProps = {
+  product: Product;
+  isBigCard?: boolean;
+}
+
+function CardItem({product, isBigCard}: CardItemProps): JSX.Element {
+  const {id, title, price, previewImage, previewImageWebp, isNew, isFavorite} = product;
+
   return (
-    <div className="card-item card-item--big">
-      <Link className="card-item__img-link" to={AppRoute.Product}>
+    <div className={classNames('card-item', {'card-item--big': isBigCard})}>
+      <Link className="card-item__img-link" to={AppRoute.Product.replace(':id', id)}>
         <div className="card-item__img-wrapper">
           <picture>
-            <source type="image/webp" srcSet="img/content/blueberry-cake.webp, img/content/blueberry-cake@2x.webp 2x" />
-            <img src="img/content/blueberry-cake.jpg" srcSet="img/content/blueberry-cake@2x.jpg 2x" width="326" height="332" alt="Торт голубика." />
+            <source type="image/webp" src={previewImageWebp} />
+            <img src={previewImage} width="326" height="332" alt={title} />
           </picture>
         </div>
-        <span className="card-item__label">Новинка</span>
+        {isNew && <span className="card-item__label">Новинка</span>}
       </Link>
-      <button className="card-item__favorites card-item__favorites--active">
+      <button
+        className={classNames(
+          'card-item__favorites',
+          {'card-item__favorites--active': isFavorite}
+        )}
+      >
         <span className="visually-hidden">Добавить в избранное</span>
         <svg width="51" height="41" aria-hidden="true">
           <use xlinkHref="#icon-like" />
         </svg>
       </button>
-      <span className="card-item__price">9 300 p</span>
-      <Link className="card-item__link" to={AppRoute.Product}>
+      {isBigCard && <span className="card-item__price">{formatPrice(price)} p</span>}
+      <Link className="card-item__link" to={AppRoute.Product.replace(':id', id)}>
         <h3 className="card-item__title">
-          <span>Торт Голубика</span>
+          <span>{title}</span>
         </h3>
       </Link>
     </div>

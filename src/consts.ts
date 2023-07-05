@@ -1,3 +1,6 @@
+export const BASICS = ['Бисквит', 'Десерт', 'Чизкейк', 'Песочное'];
+export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
+
 export enum AppRoute {
   Main = '/',
   Catalog = '/catalog',
@@ -7,4 +10,6 @@ export enum AppRoute {
   Signup = '/signup',
 }
 
-export const BASICS = ['Бисквит', 'Десерт', 'Чизкейк', 'Песочное'];
+export enum APIRoute {
+  Products = '/products',
+}
