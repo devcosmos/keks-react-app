@@ -1,4 +1,4 @@
-import CatalogItem from '../catalog-item/catalog-item';
+import CardItem from '../card-item/card-item';
 
 function CatalogList(): JSX.Element {
   return (
@@ -7,7 +7,12 @@ function CatalogList(): JSX.Element {
         <h2 className="visually-hidden">Каталог</h2>
         <div className="catalog__wrapper">
           <ul className="catalog__list">
-            <CatalogItem />
+            <li className="catalog__item">
+              <CardItem />
+            </li>
+            <li className="catalog__item">
+              <CardItem />
+            </li>
           </ul>
           <div className="catalog__button-wrapper">
             <button className="btn btn--second" type="button">Показать еще</button>
