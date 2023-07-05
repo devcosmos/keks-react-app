@@ -12,4 +12,21 @@ export enum AppRoute {
 
 export enum APIRoute {
   Products = '/products',
+  Login = '/users/login',
+  Logout = '/users/logout',
+  Registration = '/users/registration',
+  Upload = '/users/upload',
 }
+
+export enum AuthStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum NameSpace {
+  Process = 'PROCESS',
+  Data = 'DATA',
+  User = 'USER',
+}
+
