@@ -2,9 +2,10 @@ import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Layout from '../../components/layout/layout';
 import { useAppSelector } from '../../hooks';
+import { getProducts } from '../../store/products-data/selectors';
 
 function Catalog(): JSX.Element {
-  const products = useAppSelector((state) => state.products);
+  const products = useAppSelector(getProducts);
 
   return (
     <Layout heading="Каталог товаров" backLink footer>

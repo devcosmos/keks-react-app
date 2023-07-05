@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 import { BASICS } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeFilterBase } from '../../store/actions';
+import { changeFilterBase } from '../../store/products-process/products-process';
+import { getFilterBase } from '../../store/products-process/selectors';
 
 function CatalogFilter(): JSX.Element {
   const dispatch = useAppDispatch();
-  const activeBase = useAppSelector((state) => state.filterBase);
+  const activeBase = useAppSelector(getFilterBase);
 
   return (
     <div className="catalog-filter">
