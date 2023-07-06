@@ -2,7 +2,7 @@ import Layout from '../../components/layout/layout';
 
 function Error(): JSX.Element {
   return (
-    <Layout heading="Ошибка загрузки страницы" footer>
+    <Layout header heading="Ошибка загрузки страницы" footer>
       <section className="error-loading">
         <div className="container">
           <h2 className="error-loading__title">Что-то пошло не&nbsp;так...</h2>
