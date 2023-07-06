@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './actions';
-import { Products } from '../types/products';
+import { Categories, Products } from '../types/products';
 import { APIRoute, AppRoute } from '../consts';
 import { AuthData, RegistrationData, UserData } from '../types/users';
 import { dropToken, saveToken } from '../services/token';
@@ -19,6 +19,15 @@ export const fetchProductsAction = createAsyncThunkTeamplate<Products>()(
   'data/loadProducts',
   async (_, {extra: api}) => {
     const {data} = await api.get<Products>(APIRoute.Products);
+
+    return data;
+  },
+);
+
+export const fetchCategoriesAction = createAsyncThunkTeamplate<Categories>()(
+  'data/loadCategories',
+  async (_, {extra: api}) => {
+    const {data} = await api.get<Categories>(APIRoute.Categories);
 
     return data;
   },
