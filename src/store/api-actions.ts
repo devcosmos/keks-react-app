@@ -4,7 +4,7 @@ import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './actions';
 import { Products } from '../types/products';
 import { APIRoute, AppRoute } from '../consts';
-import { AuthData, UserData } from '../types/users';
+import { AuthData, RegistrationData, UserData } from '../types/users';
 import { dropToken, saveToken } from '../services/token';
 
 function createAsyncThunkTeamplate<Returned = void, ThunkArg = undefined>() {
@@ -14,6 +14,7 @@ function createAsyncThunkTeamplate<Returned = void, ThunkArg = undefined>() {
     extra: AxiosInstance;
   }>;
 }
+
 export const fetchProductsAction = createAsyncThunkTeamplate<Products>()(
   'data/loadProducts',
   async (_, {extra: api}) => {
@@ -27,6 +28,15 @@ export const checkAuthAction = createAsyncThunkTeamplate<UserData>()(
   'user/checkAuth',
   async (_, {extra: api}) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
+
+    return data;
+  },
+);
+
+export const registrationAction = createAsyncThunkTeamplate<UserData, RegistrationData>()(
+  'user/registration',
+  async ({name, email, password}, {extra: api}) => {
+    const {data} = await api.post<UserData>(APIRoute.Registration, {name, email, password});
 
     return data;
   },
