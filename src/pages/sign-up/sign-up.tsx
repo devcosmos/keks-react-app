@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import LayoutAuth from '../../components/layout-auth/layout-auth';
 import { AppRoute } from '../../consts';
 
-function Signup(): JSX.Element {
+function SignUp(): JSX.Element {
   return (
     <LayoutAuth className="register">
       <>
@@ -37,11 +37,11 @@ function Signup(): JSX.Element {
           </form>
         </div>
         <p className="register-page__text-wrap">
-          Уже зарегистрированы? <Link className="register-page__link" to={AppRoute.Login}>Войдите</Link> в свой аккаунт.
+          Уже зарегистрированы? <Link className="register-page__link" to={AppRoute.SignIn}>Войдите</Link> в свой аккаунт.
         </p>
       </>
     </LayoutAuth>
   );
 }
 
-export default Signup;
+export default SignUp;

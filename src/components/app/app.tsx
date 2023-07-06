@@ -4,9 +4,9 @@ import Main from '../../pages/main/main';
 import Catalog from '../../pages/catalog/catalog';
 import Favourites from '../../pages/favourites/favourites';
 import NotFound from '../../pages/not-found/not-found';
-import Login from '../../pages/login/login';
-import Signup from '../../pages/signup/signup';
 import Product from '../../pages/product/product';
+import SignIn from '../../pages/sign-in/sign-in';
+import SignUp from '../../pages/sign-up/sign-up';
 
 function App(): JSX.Element {
   return (
@@ -16,8 +16,8 @@ function App(): JSX.Element {
         <Route path={AppRoute.Catalog} element={<Catalog />} />
         <Route path={AppRoute.Product} element={<Product />} />
         <Route path={AppRoute.Favourites} element={<Favourites />} />
-        <Route path={AppRoute.Login} element={<Login />} />
-        <Route path={AppRoute.Signup} element={<Signup />} />
+        <Route path={AppRoute.SignIn} element={<SignIn />} />
+        <Route path={AppRoute.SignUp} element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

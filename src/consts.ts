@@ -6,8 +6,8 @@ export enum AppRoute {
   Catalog = '/catalog',
   Product = '/catalog/:id',
   Favourites = '/favourites',
-  Login = '/login',
-  Signup = '/signup',
+  SignIn = '/signin',
+  SignUp = '/signup',
 }
 
 export enum APIRoute {

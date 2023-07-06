@@ -48,6 +48,6 @@ export const logoutAction = createAsyncThunkTeamplate()(
   async (_, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(redirectToRoute(AppRoute.Login));
+    dispatch(redirectToRoute(AppRoute.SignIn));
   },
 );
