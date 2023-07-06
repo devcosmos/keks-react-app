@@ -22,6 +22,7 @@ export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+  Registered = 'REGISTERED',
 }
 
 export enum NameSpace {
