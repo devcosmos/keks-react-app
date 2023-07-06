@@ -4,7 +4,7 @@ import Layout from '../../components/layout/layout';
 
 function NotFound(): JSX.Element {
   return (
-    <Layout heading="404">
+    <Layout header heading="404">
       <section className="error-page">
         <div className="container">
           <h2 className="error-page__title">404</h2>

@@ -6,7 +6,7 @@ import Reviews from '../../components/reviews/reviews';
 
 function Product(): JSX.Element {
   return (
-    <Layout heading="Карточка: пользователь авторизован" backLink footer>
+    <Layout header heading="Карточка: пользователь авторизован" backLink footer>
       <>
         <ProductDetails />
         <ReviewForm />
