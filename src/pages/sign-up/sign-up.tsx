@@ -1,44 +1,30 @@
 import { Link } from 'react-router-dom';
 import LayoutAuth from '../../components/layout-auth/layout-auth';
-import { AppRoute } from '../../consts';
+import { AppRoute, AuthStatus } from '../../consts';
+import { useAppSelector } from '../../hooks';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import SignUpForm from '../../components/sign-up-form/sign-up-form';
 
 function SignUp(): JSX.Element {
+  const isRegistered = useAppSelector(getAuthStatus) === AuthStatus.Registered;
+
   return (
     <LayoutAuth className="register">
       <>
         <h1 className="register-page__title">Регистрация</h1>
+        {isRegistered && (
+          <p className="register-page__text-wrap">
+            Вы успешно зарегистрировались! <Link className="register-page__link" to={AppRoute.SignIn}>Войдите</Link> в свой аккаунт.
+          </p>
+        )}
         <div className="register-page__form">
-          <form action="#" method="post" autoComplete="off">
-            <div className="register-page__fields">
-              <div className="custom-input register-page__field">
-                <label>
-                  <span className="custom-input__label">Введите ваше имя</span>
-                  <input type="text" name="user-name-1" placeholder="Имя" required />
-                </label>
-              </div>
-              <div className="custom-input register-page__field">
-                <label>
-                  <span className="custom-input__label">Введите вашу почту</span>
-                  <input type="email" name="user-mail-1" placeholder="Почта" required />
-                </label>
-              </div>
-              <div className="custom-input register-page__field">
-                <label><span className="custom-input__label">Введите ваш пароль</span>
-                  <input type="password" name="user-password-1" placeholder="Пароль" required />
-                </label>
-              </div>
-              <div className="custom-input register-page__field">
-                <label><span className="custom-input__label">Введите ваше имя</span>
-                  <input type="file" name="user-name-1" data-text="Аватар" accept="image/jpeg" />
-                </label>
-              </div>
-            </div>
-            <button className="btn register-page__btn btn--large" type="submit">Зарегистрироваться</button>
-          </form>
+          <SignUpForm />
         </div>
-        <p className="register-page__text-wrap">
-          Уже зарегистрированы? <Link className="register-page__link" to={AppRoute.SignIn}>Войдите</Link> в свой аккаунт.
-        </p>
+        {!isRegistered && (
+          <p className="register-page__text-wrap">
+            Уже зарегистрированы? <Link className="register-page__link" to={AppRoute.SignIn}>Войдите</Link> в свой аккаунт.
+          </p>
+        )}
       </>
     </LayoutAuth>
   );
