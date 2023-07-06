@@ -12,7 +12,7 @@ function Main(): JSX.Element {
   const products = useAppSelector(getProducts);
 
   return (
-    <Layout footer>
+    <Layout header footer>
       <>
         <Hero />
         <section className="random-main">

@@ -6,8 +6,8 @@ export enum AppRoute {
   Catalog = '/catalog',
   Product = '/catalog/:id',
   Favourites = '/favourites',
-  Login = '/login',
-  Signup = '/signup',
+  SignIn = '/signin',
+  SignUp = '/signup',
 }
 
 export enum APIRoute {
@@ -22,6 +22,7 @@ export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+  Registered = 'REGISTERED',
 }
 
 export enum NameSpace {

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserProcess } from '../../types/state';
-import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
+import { checkAuthAction, loginAction, logoutAction, registrationAction } from '../api-actions';
 import { AuthStatus, NameSpace } from '../../consts';
 
 const initialState: UserProcess = {
@@ -27,6 +27,10 @@ export const userProcess = createSlice({
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthStatus.NoAuth;
+      })
+      .addCase(registrationAction.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthStatus.Registered;
+        state.user = action.payload;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthStatus.NoAuth;

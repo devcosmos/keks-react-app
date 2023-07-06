@@ -4,15 +4,16 @@ import Header from '../header/header';
 
 type LayoutProps = {
   children: JSX.Element;
+  header?: boolean;
   heading?: string;
   backLink?: boolean;
   footer?: boolean;
 }
 
-function Layout({children, heading, backLink, footer}: LayoutProps): JSX.Element {
+function Layout({children, header, heading, backLink, footer}: LayoutProps): JSX.Element {
   return (
     <div className="wrapper">
-      <Header />
+      {header && <Header />}
       <main>
         {heading && <h1 className="visually-hidden">{heading}</h1>}
         {backLink && <BackLink />}

@@ -8,7 +8,7 @@ function Catalog(): JSX.Element {
   const products = useAppSelector(getProducts);
 
   return (
-    <Layout heading="Каталог товаров" backLink footer>
+    <Layout header heading="Каталог товаров" backLink footer>
       <>
         <CatalogFilter />
         <CatalogList products={products}/>

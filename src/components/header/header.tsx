@@ -1,55 +1,40 @@
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { AppRoute } from '../../consts';
+import { getCurrentUser } from '../../store/user-process/selectors';
+import HeaderButtons from '../header-auth-buttons/header-auth-buttons';
+
 function Header(): JSX.Element {
+  const user = useAppSelector(getCurrentUser);
+  const isAuth = user !== null;
+
   return (
-    <header className="header header--authorized">
+    <header
+      className={classNames(
+        'header',
+        {'header--authorized': isAuth}
+      )}
+    >
       <div className="container">
         <div className="header__inner">
-          <span className="header__logo">
-            <img
-              src="img/svg/logo.svg"
-              width="170"
-              height="69"
-              alt="Кондитерская кекс"
-            />
-          </span>
-          <div className="header__user-info-wrap">
-            <div className="header__user-info">
-              <div className="header__user-avatar">
-                <picture>
-                  <source
-                    type="image/webp"
-                    srcSet="
-                      img/content/user-avatar.webp,
-                      img/content/user-avatar@2x.webp 2x
-                    "
-                  />
-                  <img
-                    src="img/content/user-avatar.jpg"
-                    srcSet="img/content/user-avatar@2x.jpg 2x"
-                    width="62"
-                    height="62"
-                    alt="Аватар пользователя."
-                  />
-                </picture>
-              </div>
-              <p className="header__user-mail">keks@academy.ru</p>
-            </div>
-          </div>
-          <div className="header__buttons">
-            <a className="header__favourite" href="#">
-              <span className="header__favourite-icon">
-                <svg width="33" height="29" aria-hidden="true">
-                  <use xlinkHref="#icon-favourite"></use>
-                </svg>
-              </span>
-              <span className="header__favourite-number">2</span>
-              <span className="visually-hidden">Избранное</span>
-            </a>
-            <div className="header__buttons-authorized">
-              <div className="header__btn">
-                <a className="btn btn--second" href="#">Выйти</a>
+          <Link className="header__logo" to={AppRoute.Main}>
+            <img src="img/svg/logo.svg" width="170" height="69" alt="Кондитерская кекс" />
+          </Link>
+          {isAuth && (
+            <div className="header__user-info-wrap">
+              <div className="header__user-info">
+                <div className="header__user-avatar">
+                  <picture>
+                    <source type="image/webp" src={user.avatarUrl} />
+                    <img src={user.avatarUrl} width="62" height="62" alt="Аватар пользователя." />
+                  </picture>
+                </div>
+                <p className="header__user-mail">{user.email}</p>
               </div>
             </div>
-          </div>
+          )}
+          <HeaderButtons isAuth={isAuth} />
         </div>
       </div>
     </header>

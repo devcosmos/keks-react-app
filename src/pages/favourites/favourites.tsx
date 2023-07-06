@@ -4,7 +4,7 @@ import Layout from '../../components/layout/layout';
 
 function Favourites(): JSX.Element {
   return (
-    <Layout heading="Избранное" backLink footer>
+    <Layout header heading="Избранное" backLink footer>
       <>
         <FavouritesQuantity />
         <section className="favourites">
