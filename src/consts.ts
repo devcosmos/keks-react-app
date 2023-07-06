@@ -1,5 +1,6 @@
 export const BASICS = ['Бисквит', 'Десерт', 'Чизкейк', 'Песочное'];
 export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
+export const CATALOG_PRODUCT_DISPLAY_COUNT = 6;
 
 export enum AppRoute {
   Main = '/',
