@@ -15,7 +15,7 @@ function CatalogButton({productsCount, showCount, setShowCount}: MoreButtonProps
           type="button"
           onClick={() => setShowCount(showCount + CATALOG_PRODUCT_DISPLAY_COUNT)}
         >
-            Показать еще
+          Показать еще
         </button>
       ) : (
         <button
