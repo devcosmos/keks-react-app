@@ -69,9 +69,9 @@ export const ProductTypeInRUS:
   [ProductType.HoneyCake]: 'Медовый',
   [ProductType.Lemon]: 'Лимонный',
   [ProductType.NewYork]: 'Нью-Йорк',
-  [ProductType.Tart]: 'Торт',
-  [ProductType.FunnelCake]: 'Пирог',
+  [ProductType.Tart]: 'Тарт',
+  [ProductType.FunnelCake]: 'Торт',
   [ProductType.BasketCake]: 'Корзинка',
-  [ProductType.ChocolateMuffin]: 'Шоколадный маффин',
-  [ProductType.BrandMuffin]: 'Фирменный маффин'
+  [ProductType.ChocolateMuffin]: 'Шоколадный кекс',
+  [ProductType.BrandMuffin]: 'Фирменный кекс'
 };
