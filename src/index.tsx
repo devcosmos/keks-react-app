@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import App from './components/app/app';
-import { checkAuthAction, fetchProductsAction } from './store/api-actions';
+import { checkAuthAction, fetchCategoriesAction, fetchProductsAction } from './store/api-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HistoryRouter from './components/history-route/history-route';
 import browserHistory from './browser-history';
 
 store.dispatch(fetchProductsAction());
+store.dispatch(fetchCategoriesAction());
 store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
