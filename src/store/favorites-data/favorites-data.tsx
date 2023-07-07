@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchFavoritesAction } from '../api-actions';
+import { addFavoriteAction, deleteFavoriteAction, fetchFavoritesAction } from '../api-actions';
 import { NameSpace } from '../../consts';
 import { ProductsFullInfo } from '../../types/products';
 
@@ -32,6 +32,32 @@ export const favoritesData = createSlice({
       })
       .addCase(fetchFavoritesAction.rejected, (state) => {
         state.favorites = [];
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(addFavoriteAction.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(addFavoriteAction.fulfilled, (state, action) => {
+        state.favorites.push(action.payload);
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(addFavoriteAction.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(deleteFavoriteAction.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(deleteFavoriteAction.fulfilled, (state, action) => {
+        state.favorites = state.favorites.filter((product) => product.id !== action.payload.id);
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(deleteFavoriteAction.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });

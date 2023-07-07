@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './actions';
-import { Categories, ProductFullInfo, Products } from '../types/products';
+import { Categories, ProductFullInfo, Products, ProductsFullInfo } from '../types/products';
 import { APIRoute, AppRoute } from '../consts';
 import { AuthData, RegistrationData, UserData } from '../types/users';
 import { dropToken, saveToken } from '../services/token';
@@ -28,6 +28,33 @@ export const fetchProductAction = createAsyncThunkTeamplate<ProductFullInfo, str
   'data/loadProduct',
   async (id, {extra: api}) => {
     const {data} = await api.get<ProductFullInfo>(`${APIRoute.Products}/${id}`);
+
+    return data;
+  },
+);
+
+export const fetchFavoritesAction = createAsyncThunkTeamplate<ProductsFullInfo>()(
+  'data/loadFavorites',
+  async (_, {extra: api}) => {
+    const {data} = await api.get<ProductsFullInfo>(APIRoute.Favorites);
+
+    return data;
+  },
+);
+
+export const addFavoriteAction = createAsyncThunkTeamplate<ProductFullInfo, string>()(
+  'data/addFavorite',
+  async (id, {extra: api}) => {
+    const {data} = await api.put<ProductFullInfo>(`${APIRoute.Favorites}/${id}`);
+
+    return data;
+  },
+);
+
+export const deleteFavoriteAction = createAsyncThunkTeamplate<ProductFullInfo, string>()(
+  'data/deleteFavorite',
+  async (id, {extra: api}) => {
+    const {data} = await api.delete<ProductFullInfo>(`${APIRoute.Favorites}/${id}`);
 
     return data;
   },
