@@ -32,7 +32,7 @@ export enum AuthStatus {
 export enum NameSpace {
   Process = 'PROCESS',
   ProductsData = 'PRODUCTS_DATA',
-  FavoritesData = 'FAVORITES_DATA',
+  FavouritesData = 'FAVOURITES_DATA',
   User = 'USER',
 }
 

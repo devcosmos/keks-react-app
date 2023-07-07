@@ -8,7 +8,7 @@ export type Product = {
   price: number;
   previewImage: string;
   previewImageWebp: string;
-  isFavorite: boolean;
+  isFavourite: boolean;
   isNew: boolean;
 }
 

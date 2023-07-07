@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoute } from '../../consts';
-import { getFavorites } from '../../store/favorites-data/selectors';
+import { getFavourites } from '../../store/favourites-data/selectors';
 
 type HeaderButtonsProps = {
   isAuth: boolean;
@@ -10,7 +10,7 @@ type HeaderButtonsProps = {
 
 function HeaderButtons({isAuth}: HeaderButtonsProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector(getFavorites);
+  const favourites = useAppSelector(getFavourites);
 
   return (
     <div className="header__buttons">
@@ -22,7 +22,7 @@ function HeaderButtons({isAuth}: HeaderButtonsProps): JSX.Element {
                 <use xlinkHref="#icon-favourite" />
               </svg>
             </span>
-            {favorites.length > 0 && <span className="header__favourite-number">{favorites.length}</span>}
+            {favourites.length > 0 && <span className="header__favourite-number">{favourites.length}</span>}
             <span className="visually-hidden">Избранное</span>
           </Link>
           <div className="header__buttons-authorized">

@@ -3,24 +3,24 @@ import FavouritesEmpty from '../../components/favourites-empty/favourites-empty'
 import FavouritesQuantity from '../../components/favourites-quantity/favourites-quantity';
 import Layout from '../../components/layout/layout';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { deleteFavoriteAction } from '../../store/api-actions';
-import { getFavorites } from '../../store/favorites-data/selectors';
+import { deleteFavouriteAction } from '../../store/api-actions';
+import { getFavourites } from '../../store/favourites-data/selectors';
 
 function Favourites(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const favorites = useAppSelector(getFavorites);
+  const favourites = useAppSelector(getFavourites);
 
   const handleClearButton = () =>
-    favorites.forEach((product) => {
-      dispatch(deleteFavoriteAction(product.id));
+    favourites.forEach((product) => {
+      dispatch(deleteFavouriteAction(product.id));
     });
 
   return (
     <Layout header heading="Избранное" backLink footer>
-      {favorites.length ? (
+      {favourites.length ? (
         <>
-          <FavouritesQuantity favorites={favorites} />
+          <FavouritesQuantity favourites={favourites} />
           <section className="favourites">
             <div className="container">
               <h2 className="visually-hidden">Избранные товары</h2>
@@ -34,7 +34,7 @@ function Favourites(): JSX.Element {
                 </button>
               </div>
             </div>
-            <CatalogList products={favorites} />
+            <CatalogList products={favourites} />
           </section>
         </>
       ) : (

@@ -33,8 +33,8 @@ export const fetchProductAction = createAsyncThunkTeamplate<ProductFullInfo, str
   },
 );
 
-export const fetchFavoritesAction = createAsyncThunkTeamplate<ProductsFullInfo>()(
-  'data/loadFavorites',
+export const fetchFavouritesAction = createAsyncThunkTeamplate<ProductsFullInfo>()(
+  'data/loadFavourites',
   async (_, {extra: api}) => {
     const {data} = await api.get<ProductsFullInfo>(APIRoute.Favorites);
 
@@ -42,8 +42,8 @@ export const fetchFavoritesAction = createAsyncThunkTeamplate<ProductsFullInfo>(
   },
 );
 
-export const addFavoriteAction = createAsyncThunkTeamplate<ProductFullInfo, string>()(
-  'data/addFavorite',
+export const addFavouriteAction = createAsyncThunkTeamplate<ProductFullInfo, string>()(
+  'data/addFavourite',
   async (id, {extra: api}) => {
     const {data} = await api.put<ProductFullInfo>(`${APIRoute.Favorites}/${id}`);
 
@@ -51,8 +51,8 @@ export const addFavoriteAction = createAsyncThunkTeamplate<ProductFullInfo, stri
   },
 );
 
-export const deleteFavoriteAction = createAsyncThunkTeamplate<ProductFullInfo, string>()(
-  'data/deleteFavorite',
+export const deleteFavouriteAction = createAsyncThunkTeamplate<ProductFullInfo, string>()(
+  'data/deleteFavourite',
   async (id, {extra: api}) => {
     const {data} = await api.delete<ProductFullInfo>(`${APIRoute.Favorites}/${id}`);
 

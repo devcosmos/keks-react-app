@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addFavoriteAction, deleteFavoriteAction } from '../../store/api-actions';
+import { addFavouriteAction, deleteFavouriteAction } from '../../store/api-actions';
 import { getAuthStatus } from '../../store/user-process/selectors';
 import { AppRoute, AuthStatus } from '../../consts';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { getFavorites } from '../../store/favorites-data/selectors';
+import { getFavourites } from '../../store/favourites-data/selectors';
 
 type LikeButtonProps = {
   id: string;
@@ -16,14 +16,14 @@ function LikeButton({id, className}: LikeButtonProps): JSX.Element {
   const navigate = useNavigate();
 
   const isAuth = useAppSelector(getAuthStatus) === AuthStatus.Auth;
-  const favorites = useAppSelector(getFavorites);
-  const isFavorite = favorites.some((element) => element.id === id);
+  const favourites = useAppSelector(getFavourites);
+  const isFavourite = favourites.some((element) => element.id === id);
 
   const handleMyListClick = () => {
     if (isAuth) {
-      isFavorite
-        ? dispatch(deleteFavoriteAction(id))
-        : dispatch(addFavoriteAction(id));
+      isFavourite
+        ? dispatch(deleteFavouriteAction(id))
+        : dispatch(addFavouriteAction(id));
     } else {
       navigate(AppRoute.SignIn);
     }
@@ -33,7 +33,7 @@ function LikeButton({id, className}: LikeButtonProps): JSX.Element {
     <button
       className={classNames(
         className,
-        {[`${className}--active`]: isFavorite}
+        {[`${className}--active`]: isFavourite}
       )}
       onClick={handleMyListClick}
     >
@@ -41,7 +41,7 @@ function LikeButton({id, className}: LikeButtonProps): JSX.Element {
         <use xlinkHref="#icon-like" />
       </svg>
       <span className="visually-hidden">
-        {isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+        {isFavourite ? 'Удалить из избранного' : 'Добавить в избранное'}
       </span>
     </button>
   );

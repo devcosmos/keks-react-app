@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import PrivateRoute from '../private-route/private-route';
 import Loader from '../loader/loader';
 import { useEffect } from 'react';
-import { fetchFavoritesAction } from '../../store/api-actions';
+import { fetchFavouritesAction } from '../../store/api-actions';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (isAuth) {
-      dispatch(fetchFavoritesAction());
+      dispatch(fetchFavouritesAction());
     }
   }, [dispatch, isAuth]);
 
