@@ -1,8 +1,10 @@
+import { ProductCategory, ProductType } from '../consts';
+
 export type Product = {
   id: string;
   title: string;
-  category: string;
-  type: string;
+  category: ProductCategory;
+  type: ProductType;
   price: number;
   previewImage: string;
   previewImageWebp: string;
@@ -11,3 +13,8 @@ export type Product = {
 }
 
 export type Products = Product[];
+
+export type Categories = {
+  category: ProductCategory;
+  types: ProductType[];
+}[];
