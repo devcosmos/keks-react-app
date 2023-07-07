@@ -9,23 +9,16 @@ type MoreButtonProps = {
 function CatalogButton({productsCount, showCount, setShowCount}: MoreButtonProps): JSX.Element {
   return (
     <div className="catalog__button-wrapper">
-      {productsCount > showCount ? (
-        <button
-          className="btn btn--second"
-          type="button"
-          onClick={() => setShowCount(showCount + CATALOG_PRODUCT_DISPLAY_COUNT)}
-        >
-          Показать еще
-        </button>
-      ) : (
-        <button
-          className="btn btn--second"
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        >
-          В начало
-        </button>
-      )}
+      <button
+        className="btn btn--second"
+        type="button"
+        onClick={() =>
+          productsCount > showCount
+            ? setShowCount(showCount + CATALOG_PRODUCT_DISPLAY_COUNT)
+            : window.scrollTo({top: 0, behavior: 'smooth'})}
+      >
+        {productsCount > showCount ? 'Показать еще' : 'В начало'}
+      </button>
     </div>
   );
 }
