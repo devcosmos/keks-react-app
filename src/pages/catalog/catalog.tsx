@@ -3,7 +3,7 @@ import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Layout from '../../components/layout/layout';
 import { useAppSelector } from '../../hooks';
-import { getCategories, getErrorStatus, getLoadingStatus, getProducts } from '../../store/products-data/selectors';
+import { getCategories, getProductsErrorStatus, getProductsLoadingStatus, getProducts } from '../../store/products-data/selectors';
 import Error from '../error/error';
 import { store } from '../../store';
 import { fetchCategoriesAction } from '../../store/api-actions';
@@ -14,8 +14,8 @@ import CatalogNotFound from '../../components/catalog-not-found/catalog-not-foun
 
 function Catalog(): JSX.Element {
   let products = useAppSelector(getProducts);
-  const isError = useAppSelector(getErrorStatus);
-  const isLoading = useAppSelector(getLoadingStatus);
+  const isError = useAppSelector(getProductsErrorStatus);
+  const isLoading = useAppSelector(getProductsLoadingStatus);
   const activeCategory = useAppSelector(getFilterCategory);
   const activeTypes = useAppSelector(getFilterTypes);
   const categories = useAppSelector(getCategories);
