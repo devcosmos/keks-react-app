@@ -3,6 +3,7 @@ import { AppRoute } from '../../consts';
 import { Product } from '../../types/products';
 import { getNumberWithSpace } from '../utils';
 import classNames from 'classnames';
+import LikeButton from '../like-button/like-button';
 
 type CardItemProps = {
   product: Product;
@@ -10,7 +11,7 @@ type CardItemProps = {
 }
 
 function CardItem({product, isBigCard}: CardItemProps): JSX.Element {
-  const {id, title, price, previewImage, previewImageWebp, isNew, isFavorite} = product;
+  const {id, title, price, previewImage, previewImageWebp, isNew} = product;
 
   return (
     <div className={classNames('card-item', {'card-item--big': isBigCard})}>
@@ -23,17 +24,7 @@ function CardItem({product, isBigCard}: CardItemProps): JSX.Element {
         </div>
         {isNew && <span className="card-item__label">Новинка</span>}
       </Link>
-      <button
-        className={classNames(
-          'card-item__favorites',
-          {'card-item__favorites--active': isFavorite}
-        )}
-      >
-        <span className="visually-hidden">Добавить в избранное</span>
-        <svg width="51" height="41" aria-hidden="true">
-          <use xlinkHref="#icon-like" />
-        </svg>
-      </button>
+      <LikeButton id={id} className="card-item__favorites" />
       {isBigCard && <span className="card-item__price">{getNumberWithSpace(price)} p</span>}
       <Link className="card-item__link" to={AppRoute.Product.replace(':id', id)}>
         <h3 className="card-item__title">
