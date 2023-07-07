@@ -6,10 +6,6 @@ export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export type ProductsProcess = {
-  filterBase: null | string;
-};
-
 export type UserProcess = {
   authorizationStatus: AuthStatus;
   user: UserData | null;

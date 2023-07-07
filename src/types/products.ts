@@ -3,8 +3,8 @@ import { ProductCategory, ProductType } from '../consts';
 export type Product = {
   id: string;
   title: string;
-  category: string;
-  type: string;
+  category: ProductCategory;
+  type: ProductType;
   price: number;
   previewImage: string;
   previewImageWebp: string;
