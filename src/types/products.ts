@@ -12,6 +12,15 @@ export type Product = {
   isNew: boolean;
 }
 
+
+export interface ProductFullInfo extends Product {
+  description: string;
+  images: string[];
+  weight: number;
+  rating: number;
+  reviewCount: number;
+}
+
 export type Products = Product[];
 
 export type Categories = {

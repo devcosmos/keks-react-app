@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCategoriesAction, fetchProductsAction } from '../api-actions';
+import { fetchCategoriesAction, fetchProductAction, fetchProductsAction } from '../api-actions';
 import { NameSpace } from '../../consts';
-import { Categories, Products } from '../../types/products';
+import { Categories, ProductFullInfo, Products } from '../../types/products';
 
 export type ProductsData = {
   products: Products;
+  product: ProductFullInfo | null;
   categories: Categories;
   isLoading: boolean;
   isError: boolean;
@@ -12,6 +13,7 @@ export type ProductsData = {
 
 const initialState: ProductsData = {
   products: [],
+  product: null,
   categories: [],
   isLoading: false,
   isError: false,
@@ -34,6 +36,20 @@ export const productsData = createSlice({
       })
       .addCase(fetchProductsAction.rejected, (state) => {
         state.products = [];
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(fetchProductAction.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(fetchProductAction.fulfilled, (state, action) => {
+        state.product = action.payload;
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(fetchProductAction.rejected, (state) => {
+        state.product = null;
         state.isLoading = false;
         state.isError = true;
       })

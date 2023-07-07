@@ -27,8 +27,8 @@ function Review(): JSX.Element {
         </div>
         <div className="review__image-wrapper">
           <picture>
-            <source type="image/webp" srcSet="img/content/review-1.webp, img/content/review-1@2x.webp 2x" />
-            <img src="img/content/review-1.jpg" srcSet="img/content/review-1@2x.jpg 2x" width="162" height="162" alt="Кот" />
+            <source type="image/webp" srcSet="/img/content/review-1.webp, img/content/review-1@2x.webp 2x" />
+            <img src="/img/content/review-1.jpg" srcSet="/img/content/review-1@2x.jpg 2x" width="162" height="162" alt="Кот" />
           </picture>
         </div>
       </div>

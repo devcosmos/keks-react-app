@@ -8,7 +8,7 @@ function Hero(): JSX.Element {
         <div className="hero__img-wrapper">
           <img
             className="hero__img"
-            src="img/svg/hero-keks.svg"
+            src="/img/svg/hero-keks.svg"
             width="727"
             height="569"
             alt="Картика кота."

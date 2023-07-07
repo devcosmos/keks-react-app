@@ -19,7 +19,7 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__inner">
           <Link className="header__logo" to={AppRoute.Main}>
-            <img src="img/svg/logo.svg" width="170" height="69" alt="Кондитерская кекс" />
+            <img src="/img/svg/logo.svg" width="170" height="69" alt="Кондитерская кекс" />
           </Link>
           {isAuth && (
             <div className="header__user-info-wrap">
