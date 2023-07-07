@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { Product } from '../../types/products';
-import { formatPrice } from '../utils';
+import { getNumberWithSpace } from '../utils';
 import classNames from 'classnames';
 
 type CardItemProps = {
@@ -34,7 +34,7 @@ function CardItem({product, isBigCard}: CardItemProps): JSX.Element {
           <use xlinkHref="#icon-like" />
         </svg>
       </button>
-      {isBigCard && <span className="card-item__price">{formatPrice(price)} p</span>}
+      {isBigCard && <span className="card-item__price">{getNumberWithSpace(price)} p</span>}
       <Link className="card-item__link" to={AppRoute.Product.replace(':id', id)}>
         <h3 className="card-item__title">
           <span>{title}</span>
