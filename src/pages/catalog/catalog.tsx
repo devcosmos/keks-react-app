@@ -3,10 +3,8 @@ import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Layout from '../../components/layout/layout';
 import { useAppSelector } from '../../hooks';
-import { getCategories, getErrorStatus, getLoadingStatus, getProducts } from '../../store/products-data/selectors';
+import { getCategories, getProductsErrorStatus, getProductsLoadingStatus, getProducts } from '../../store/products-data/selectors';
 import Error from '../error/error';
-import { store } from '../../store';
-import { fetchCategoriesAction } from '../../store/api-actions';
 import Loader from '../../components/loader/loader';
 import { getFilterCategory, getFilterTypes } from '../../store/products-process/selectors';
 import { CATALOG_PRODUCT_DISPLAY_COUNT } from '../../consts';
@@ -14,8 +12,8 @@ import CatalogNotFound from '../../components/catalog-not-found/catalog-not-foun
 
 function Catalog(): JSX.Element {
   let products = useAppSelector(getProducts);
-  const isError = useAppSelector(getErrorStatus);
-  const isLoading = useAppSelector(getLoadingStatus);
+  const isError = useAppSelector(getProductsErrorStatus);
+  const isLoading = useAppSelector(getProductsLoadingStatus);
   const activeCategory = useAppSelector(getFilterCategory);
   const activeTypes = useAppSelector(getFilterTypes);
   const categories = useAppSelector(getCategories);
@@ -28,10 +26,6 @@ function Catalog(): JSX.Element {
       products = products.filter((product) => activeTypes.includes(product.type));
     }
   }
-
-  useEffect(() => {
-    store.dispatch(fetchCategoriesAction());
-  }, []);
 
   useEffect(() => {
     setShowCount(CATALOG_PRODUCT_DISPLAY_COUNT);

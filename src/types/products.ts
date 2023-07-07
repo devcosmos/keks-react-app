@@ -8,10 +8,9 @@ export type Product = {
   price: number;
   previewImage: string;
   previewImageWebp: string;
-  isFavorite: boolean;
+  isFavourite: boolean;
   isNew: boolean;
 }
-
 
 export interface ProductFullInfo extends Product {
   description: string;
@@ -22,6 +21,7 @@ export interface ProductFullInfo extends Product {
 }
 
 export type Products = Product[];
+export type ProductsFullInfo = ProductFullInfo[];
 
 export type Categories = {
   category: ProductCategory;

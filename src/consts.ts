@@ -14,6 +14,7 @@ export enum AppRoute {
 
 export enum APIRoute {
   Products = '/products',
+  Favorites = '/favorites',
   Categories = '/categories',
   Login = '/users/login',
   Logout = '/users/logout',
@@ -30,7 +31,8 @@ export enum AuthStatus {
 
 export enum NameSpace {
   Process = 'PROCESS',
-  Data = 'DATA',
+  ProductsData = 'PRODUCTS_DATA',
+  FavouritesData = 'FAVOURITES_DATA',
   User = 'USER',
 }
 

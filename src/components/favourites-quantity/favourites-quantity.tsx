@@ -1,16 +1,26 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
+import { Products } from '../../types/products';
+import { getNoun, getNumberWithSpace } from '../utils';
 
-function FavouritesQuantity(): JSX.Element {
+type FavouritesQuantityProps = {
+  favourites: Products;
+}
+
+function FavouritesQuantity({favourites}: FavouritesQuantityProps): JSX.Element {
+  const sum = favourites.reduce((partialSum, a) => partialSum + a.price, 0);
+
   return (
-    <section className="number-of-favourites favorites-page__qty">
+    <section className="number-of-favourites">
       <div className="container">
         <h2 className="visually-hidden">Количество товаров в избранном.</h2>
-        <p className="number-of-favourites__cakes">2 кекса</p>
+        <p className="number-of-favourites__cakes">
+          {favourites.length}&nbsp;{getNoun(favourites.length, 'кекс', 'кекса', 'кексов')}
+        </p>
         <div className="number-of-favourites__wrapper">
           <div className="number-of-favourites__wrap-price">
             <p className="number-of-favourites__text">Всего</p>
-            <p className="number-of-favourites__price">13&nbsp;400&nbsp;р</p>
+            <p className="number-of-favourites__price">{getNumberWithSpace(sum)}&nbsp;р</p>
           </div>
         </div>
         <div className="number-of-favourites__button">

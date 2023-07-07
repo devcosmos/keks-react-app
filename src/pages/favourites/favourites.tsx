@@ -1,22 +1,45 @@
-// import CatalogList from '../../components/catalog-list/catalog-list';
+import CatalogList from '../../components/catalog-list/catalog-list';
+import FavouritesEmpty from '../../components/favourites-empty/favourites-empty';
 import FavouritesQuantity from '../../components/favourites-quantity/favourites-quantity';
 import Layout from '../../components/layout/layout';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { deleteFavouriteAction } from '../../store/api-actions';
+import { getFavourites } from '../../store/favourites-data/selectors';
 
 function Favourites(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const favourites = useAppSelector(getFavourites);
+
+  const handleClearButton = () =>
+    favourites.forEach((product) => {
+      dispatch(deleteFavouriteAction(product.id));
+    });
+
   return (
     <Layout header heading="Избранное" backLink footer>
-      <>
-        <FavouritesQuantity />
-        <section className="favourites">
-          <div className="container">
-            <h2 className="visually-hidden">Избранные товары</h2>
-            <div className="favourites__button">
-              <button className="btn btn--second" type="button">Очистить</button>
+      {favourites.length ? (
+        <>
+          <FavouritesQuantity favourites={favourites} />
+          <section className="favourites">
+            <div className="container">
+              <h2 className="visually-hidden">Избранные товары</h2>
+              <div className="favourites__button">
+                <button
+                  className="btn btn--second"
+                  type="button"
+                  onClick={handleClearButton}
+                >
+                  Очистить
+                </button>
+              </div>
             </div>
-          </div>
-          {/* <CatalogList /> */}
-        </section>
-      </>
+            <CatalogList products={favourites} />
+          </section>
+        </>
+      ) : (
+        <FavouritesEmpty />
+      )}
     </Layout>
   );
 }

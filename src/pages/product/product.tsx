@@ -3,12 +3,12 @@ import ProductDetails from '../../components/product-details/product-details';
 import ReviewFilterSort from '../../components/review-filter-sort/review-filter-sort';
 import ReviewForm from '../../components/review-form/review-form';
 import Reviews from '../../components/reviews/reviews';
-import { getErrorStatus } from '../../store/products-data/selectors';
+import { getProductsErrorStatus } from '../../store/products-data/selectors';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchProductAction } from '../../store/api-actions';
-import { getLoadingStatus, getProduct } from '../../store/products-data/selectors';
+import { getProductsLoadingStatus, getProduct } from '../../store/products-data/selectors';
 import Loader from '../../components/loader/loader';
 import Error from '../error/error';
 
@@ -24,8 +24,8 @@ function Product(): JSX.Element {
   }, [dispatch, productId]);
 
   const product = useAppSelector(getProduct);
-  const isLoading = useAppSelector(getLoadingStatus);
-  const isError = useAppSelector(getErrorStatus);
+  const isLoading = useAppSelector(getProductsLoadingStatus);
+  const isError = useAppSelector(getProductsErrorStatus);
 
   if (isLoading) {
     return <Loader />;

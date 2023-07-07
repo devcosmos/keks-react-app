@@ -2,13 +2,14 @@ import { ProductFullInfo } from '../../types/products';
 import { getNumberWithSpace } from '../utils';
 import StarRating from '../star-rating/star-rating';
 import ProductDescription from '../product-description/product-description';
+import LikeButton from '../like-button/like-button';
 
 type ProductDetailsProps = {
   product: ProductFullInfo;
 }
 
 function ProductDetails({product}: ProductDetailsProps): JSX.Element {
-  const {title, price, previewImage, previewImageWebp, isNew, weight, description, rating, reviewCount} = product;
+  const {id, title, price, previewImage, previewImageWebp, isNew, weight, description, rating, reviewCount} = product;
 
   return (
     <section className="item-details item-details--form-open">
@@ -33,12 +34,7 @@ function ProductDetails({product}: ProductDetailsProps): JSX.Element {
               <StarRating rating={rating} reviewCount={reviewCount} />
               <ProductDescription description={description} />
               <div className="item-details__button-wrapper">
-                <button className="item-details__like-button">
-                  <svg width="45" height="37" aria-hidden="true">
-                    <use xlinkHref="#icon-like" />
-                  </svg>
-                  <span className="visually-hidden">Понравилось</span>
-                </button>
+                <LikeButton id={id} className="item-details__like-button" />
                 <button className="btn btn--second" type="button">Отменить отзыв</button>
               </div>
             </div>
