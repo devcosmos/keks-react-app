@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Products } from '../../types/products';
 import { CATALOG_PRODUCT_DISPLAY_COUNT } from '../../consts';
 import CatalogButton from '../catalog-button/catalog-button';
@@ -6,13 +5,11 @@ import CardItem from '../card-item/card-item';
 
 type CatalogListProps = {
   products: Products;
-  showAll?: boolean;
+  showCount?: number;
+  setShowCount?: (count: number) => void;
 }
 
-function CatalogList({products, showAll = false}: CatalogListProps): JSX.Element {
-  const initialCount = showAll ? products.length : CATALOG_PRODUCT_DISPLAY_COUNT;
-  const [showCount, setShowCount] = useState<number>(initialCount);
-
+function CatalogList({products, showCount = products.length, setShowCount}: CatalogListProps): JSX.Element {
   return (
     <section className="catalog">
       <div className="container">
@@ -25,7 +22,7 @@ function CatalogList({products, showAll = false}: CatalogListProps): JSX.Element
               </li>
             ))}
           </ul>
-          {!showAll &&
+          {setShowCount && products.length > CATALOG_PRODUCT_DISPLAY_COUNT &&
             <CatalogButton
               productsCount={products.length}
               showCount={showCount}

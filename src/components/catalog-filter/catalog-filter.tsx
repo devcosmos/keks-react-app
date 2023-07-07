@@ -1,40 +1,22 @@
-import classNames from 'classnames';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeFilterBase } from '../../store/products-process/products-process';
-import { getFilterBase } from '../../store/products-process/selectors';
-import { getCategories } from '../../store/products-data/selectors';
-import { ProductCategoryInRUS } from '../../consts';
+import { ProductCategory, ProductType } from '../../consts';
+import { Categories } from '../../types/products';
+import FilterFirstLevel from '../filter-first-level/filter-first-level';
+import FilterSecondLevel from '../filter-second-level/filter-second-level';
 
-function CatalogFilter(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const activeCategory = useAppSelector(getFilterBase);
-  const categories = useAppSelector(getCategories);
+type CatalogFilterProps = {
+  categories: Categories;
+  activeCategory: ProductCategory | null;
+  activeTypes: ProductType[];
+}
+
+function CatalogFilter({categories, activeCategory, activeTypes}: CatalogFilterProps): JSX.Element {
+  const types = categories.find((item) => item.category === activeCategory)?.types;
 
   return (
     <div className="catalog-filter">
       <div className="container">
-        <div className="catalog-filter__first-level">
-          <h3 className="catalog-filter__title catalog-filter__title--first-level">основы</h3>
-          <ul className="catalog-filter__list catalog-filter__list--first-level">
-            {categories.map((item) => (
-              <li key={item.category} className="catalog-filter__item catalog-filter__item--first-level">
-                <button
-                  type="button"
-                  className={classNames(
-                    'btn btn--filter-first-level',
-                    {'is-active': activeCategory === item.category}
-                  )}
-                  onClick={(evt) => {
-                    evt.preventDefault();
-                    dispatch(changeFilterBase(item.category));
-                  }}
-                >
-                  {ProductCategoryInRUS[item.category]}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <FilterFirstLevel categories={categories} activeCategory={activeCategory} />
+        {types?.length && (<FilterSecondLevel types={types} activeTypes={activeTypes} />)}
       </div>
     </div>
   );
