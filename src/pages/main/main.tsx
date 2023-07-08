@@ -3,7 +3,6 @@ import CardItem from '../../components/card-item/card-item';
 import Hero from '../../components/hero/hero';
 import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
-import Review from '../../components/review/review';
 import { AppRoute, MAIN_PRODUCT_DISPLAY_COUNT } from '../../consts';
 import { useAppSelector } from '../../hooks';
 import { getProducts } from '../../store/products-data/selectors';
@@ -42,7 +41,6 @@ function Main(): JSX.Element {
         <section className="last-review">
           <div className="container">
             <h2 className="last-review__title">последний отзыв</h2>
-            <Review />
           </div>
         </section>
         <Map />
