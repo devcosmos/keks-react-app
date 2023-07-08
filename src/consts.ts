@@ -1,5 +1,6 @@
 export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
 export const CATALOG_PRODUCT_DISPLAY_COUNT = 6;
+export const REVIEW_DISPLAY_COUNT = 2;
 export const RATING_INPUT_COUNT = 5;
 export const PRODUCT_DESC_COUNT = 140;
 

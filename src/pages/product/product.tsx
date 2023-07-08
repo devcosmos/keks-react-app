@@ -6,24 +6,18 @@ import ReviewList from '../../components/review-list/review-list';
 import { getProductsErrorStatus } from '../../store/products-data/selectors';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchProductAction, fetchReviewsAction } from '../../store/api-actions';
 import { getProductsLoadingStatus, getProduct } from '../../store/products-data/selectors';
 import { getReviews, getReviewsErrorStatus, getReviewsLoadingStatus } from '../../store/reviews-data/selectors';
 import Loader from '../../components/loader/loader';
 import Error from '../error/error';
+import { REVIEW_DISPLAY_COUNT } from '../../consts';
 
 function Product(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const productId = useParams().id;
-
-  useEffect(() => {
-    if (productId) {
-      dispatch(fetchProductAction(productId));
-      dispatch(fetchReviewsAction(productId));
-    }
-  }, [dispatch, productId]);
 
   const product = useAppSelector(getProduct);
   const reviews = useAppSelector(getReviews);
@@ -31,6 +25,15 @@ function Product(): JSX.Element {
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const isProductsError = useAppSelector(getProductsErrorStatus);
   const isReviewsError = useAppSelector(getReviewsErrorStatus);
+
+  const [showCount, setShowCount] = useState<number>(REVIEW_DISPLAY_COUNT);
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(fetchProductAction(productId));
+      dispatch(fetchReviewsAction(productId));
+    }
+  }, [dispatch, productId]);
 
   if (isProductsLoading || isReviewsLoading) {
     return <Loader />;
@@ -46,7 +49,11 @@ function Product(): JSX.Element {
         <ProductDetails product={product} />
         <ReviewForm />
         <ReviewFilterSort />
-        <ReviewList reviews={reviews} />
+        <ReviewList
+          reviews={reviews}
+          showCount={showCount}
+          setShowCount={setShowCount}
+        />
       </>
     </Layout>
   );
