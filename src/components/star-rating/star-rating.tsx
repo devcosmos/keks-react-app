@@ -3,12 +3,18 @@ import { RATING_INPUT_COUNT } from '../../consts';
 
 type StarRatingProps = {
   rating: number;
-  reviewCount: number;
+  reviewCount?: number;
+  isBig?: boolean;
 }
 
-function StarRating({rating, reviewCount}: StarRatingProps): JSX.Element {
+function StarRating({rating, reviewCount, isBig = false}: StarRatingProps): JSX.Element {
   return (
-    <div className="star-rating star-rating--big">
+    <div
+      className={classNames(
+        'star-rating',
+        {'star-rating--big': isBig}
+      )}
+    >
       {[...Array(RATING_INPUT_COUNT).keys()].map((star) => (
         <svg
           key={star}
@@ -23,7 +29,7 @@ function StarRating({rating, reviewCount}: StarRatingProps): JSX.Element {
           <use xlinkHref="#icon-star" />
         </svg>
       ))}
-      <span className="star-rating__count">{reviewCount}</span>
+      {reviewCount && <span className="star-rating__count">{reviewCount}</span>}
     </div>
   );
 }

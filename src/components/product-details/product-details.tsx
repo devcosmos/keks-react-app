@@ -31,7 +31,7 @@ function ProductDetails({product}: ProductDetailsProps): JSX.Element {
               {isNew && <span className="item-details__label">Новинка</span>}
             </div>
             <div className="item-details__review-wrapper">
-              <StarRating rating={rating} reviewCount={reviewCount} />
+              <StarRating rating={rating} reviewCount={reviewCount} isBig />
               <ProductDescription description={description} />
               <div className="item-details__button-wrapper">
                 <LikeButton id={id} className="item-details__like-button" />
