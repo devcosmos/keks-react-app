@@ -6,6 +6,7 @@ import { Categories, ProductFullInfo, Products, ProductsFullInfo } from '../type
 import { APIRoute, AppRoute } from '../consts';
 import { AuthData, RegistrationData, UserData } from '../types/users';
 import { dropToken, saveToken } from '../services/token';
+import { Reviews } from '../types/reviews';
 
 function createAsyncThunkTeamplate<Returned = void, ThunkArg = undefined>() {
   return createAsyncThunk<Returned, ThunkArg, {
@@ -64,6 +65,15 @@ export const fetchCategoriesAction = createAsyncThunkTeamplate<Categories>()(
   'data/loadCategories',
   async (_, {extra: api}) => {
     const {data} = await api.get<Categories>(APIRoute.Categories);
+
+    return data;
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunkTeamplate<Reviews, string>()(
+  'data/loadReviews',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<Reviews>(`${APIRoute.Reviews}/${id}`);
 
     return data;
   },
