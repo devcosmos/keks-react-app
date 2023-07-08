@@ -2,13 +2,14 @@ import Layout from '../../components/layout/layout';
 import ProductDetails from '../../components/product-details/product-details';
 import ReviewFilterSort from '../../components/review-filter-sort/review-filter-sort';
 import ReviewForm from '../../components/review-form/review-form';
-import Reviews from '../../components/reviews/reviews';
+import ReviewList from '../../components/review-list/review-list';
 import { getProductsErrorStatus } from '../../store/products-data/selectors';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchProductAction } from '../../store/api-actions';
+import { fetchProductAction, fetchReviewsAction } from '../../store/api-actions';
 import { getProductsLoadingStatus, getProduct } from '../../store/products-data/selectors';
+import { getReviews, getReviewsErrorStatus, getReviewsLoadingStatus } from '../../store/reviews-data/selectors';
 import Loader from '../../components/loader/loader';
 import Error from '../error/error';
 
@@ -20,18 +21,22 @@ function Product(): JSX.Element {
   useEffect(() => {
     if (productId) {
       dispatch(fetchProductAction(productId));
+      dispatch(fetchReviewsAction(productId));
     }
   }, [dispatch, productId]);
 
   const product = useAppSelector(getProduct);
-  const isLoading = useAppSelector(getProductsLoadingStatus);
-  const isError = useAppSelector(getProductsErrorStatus);
+  const reviews = useAppSelector(getReviews);
+  const isProductsLoading = useAppSelector(getProductsLoadingStatus);
+  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
+  const isProductsError = useAppSelector(getProductsErrorStatus);
+  const isReviewsError = useAppSelector(getReviewsErrorStatus);
 
-  if (isLoading) {
+  if (isProductsLoading || isReviewsLoading) {
     return <Loader />;
   }
 
-  if (isError || product === null) {
+  if (product === null || isProductsError || isReviewsError) {
     return <Error />;
   }
 
@@ -41,7 +46,7 @@ function Product(): JSX.Element {
         <ProductDetails product={product} />
         <ReviewForm />
         <ReviewFilterSort />
-        <Reviews />
+        <ReviewList reviews={reviews} />
       </>
     </Layout>
   );
