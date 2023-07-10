@@ -1,18 +1,25 @@
+import classNames from 'classnames';
 import { Review } from '../../types/reviews';
 import StarRating from '../star-rating/star-rating';
 import { format } from 'date-fns';
 
 type ReviewItemProps = {
   review: Review;
+  withBorder?: boolean;
 }
 
-function ReviewItem({review}: ReviewItemProps): JSX.Element {
+function ReviewItem({review, withBorder = false}: ReviewItemProps): JSX.Element {
   const {isoDate, positive, negative, rating, user} = review;
   const date = new Date(isoDate);
 
   return (
     <div className="review">
-      <div className="review__inner-wrapper">
+      <div
+        className={classNames(
+          'review__inner-wrapper',
+          {'review__inner-wrapper--border': withBorder}
+        )}
+      >
         <time className="review__date" dateTime={format(date, 'yyyy-MM-dd')}>
           {format(date, 'dd.MM')}
         </time>
