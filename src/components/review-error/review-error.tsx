@@ -1,8 +1,8 @@
 type ReviewErrorProps = {
-  handleButtonClick: () => void;
+  onClick: () => void;
 }
 
-function ReviewError({handleButtonClick}: ReviewErrorProps): JSX.Element {
+function ReviewError({onClick}: ReviewErrorProps): JSX.Element {
   return (
     <section className="error-comments">
       <div className="container">
@@ -11,7 +11,7 @@ function ReviewError({handleButtonClick}: ReviewErrorProps): JSX.Element {
           <button
             className="btn error-comments__button"
             type="button"
-            onClick={handleButtonClick}
+            onClick={onClick}
           >
             Попробовать ещё
           </button>
