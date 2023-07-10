@@ -88,6 +88,15 @@ export const addReviewAction = createAsyncThunkTeamplate<Review, ReviewData>()(
   },
 );
 
+export const fetchLastReviewAction = createAsyncThunkTeamplate<Review>()(
+  'data/loadLastReview',
+  async (_, {extra: api}) => {
+    const {data} = await api.get<Review>(APIRoute.LastReview);
+
+    return data;
+  },
+);
+
 export const checkAuthAction = createAsyncThunkTeamplate<UserData>()(
   'user/checkAuth',
   async (_, {extra: api}) => {

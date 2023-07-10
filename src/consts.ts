@@ -18,6 +18,7 @@ export enum APIRoute {
   Favorites = '/favorites',
   Categories = '/categories',
   Reviews = '/reviews',
+  LastReview = '/reviews/getLast',
   Login = '/users/login',
   Logout = '/users/logout',
   Registration = '/users/registration',
