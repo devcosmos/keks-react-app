@@ -65,7 +65,7 @@ function Main(): JSX.Element {
             </div>
           </section>
         ) : (
-          <ReviewError handleUpdateButton={() => void dispatch(fetchLastReviewAction())} />
+          <ReviewError handleButtonClick={() => void dispatch(fetchLastReviewAction())} />
         )}
         <Map />
       </>
