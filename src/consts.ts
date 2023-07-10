@@ -1,6 +1,10 @@
 export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
 export const CATALOG_PRODUCT_DISPLAY_COUNT = 6;
+export const REVIEW_DISPLAY_COUNT = 2;
 export const RATING_INPUT_COUNT = 5;
+export const POSITIVE_RATING_MIN_VALUE = 4;
+export const TEXT_REVIEW_MAX_LENGTH = 500;
+export const TEXT_REVIEW_MIN_LENGTH = 5;
 export const PRODUCT_DESC_COUNT = 140;
 
 export enum AppRoute {
@@ -16,6 +20,8 @@ export enum APIRoute {
   Products = '/products',
   Favorites = '/favorites',
   Categories = '/categories',
+  Reviews = '/reviews',
+  LastReview = '/reviews/getLast',
   Login = '/users/login',
   Logout = '/users/logout',
   Registration = '/users/registration',
@@ -29,10 +35,29 @@ export enum AuthStatus {
   Registered = 'REGISTERED',
 }
 
+export enum RequestStatus {
+  Idle = 'IDLE',
+  Pending = 'PENDING',
+  Fulfilled = 'FULFILLED',
+  Rejected = 'REJECTED',
+}
+
+export enum ReviewSort {
+  Inc = 'inc',
+  Desc = 'desc',
+}
+
+export enum ReviewFilter {
+  Any = 'Любой',
+  High = 'Высокий',
+  Low = 'Низкий',
+}
+
 export enum NameSpace {
   Process = 'PROCESS',
   ProductsData = 'PRODUCTS_DATA',
   FavouritesData = 'FAVOURITES_DATA',
+  ReviewsData = 'REVIEWS_DATA',
   User = 'USER',
 }
 

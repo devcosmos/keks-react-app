@@ -3,13 +3,31 @@ import CardItem from '../../components/card-item/card-item';
 import Hero from '../../components/hero/hero';
 import Layout from '../../components/layout/layout';
 import Map from '../../components/map/map';
-import Review from '../../components/review/review';
 import { AppRoute, MAIN_PRODUCT_DISPLAY_COUNT } from '../../consts';
-import { useAppSelector } from '../../hooks';
-import { getProducts } from '../../store/products-data/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getProducts, getProductsLoadingStatus } from '../../store/products-data/selectors';
+import ReviewItem from '../../components/review-item/review-item';
+import { getLastReview, getReviewsLoadingStatus } from '../../store/reviews-data/selectors';
+import { useEffect } from 'react';
+import { fetchLastReviewAction } from '../../store/api-actions';
+import ReviewError from '../../components/review-error/review-error';
+import Loader from '../../components/loader/loader';
 
 function Main(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const products = useAppSelector(getProducts);
+  const review = useAppSelector(getLastReview);
+  const isProductsLoading = useAppSelector(getProductsLoadingStatus);
+  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
+
+  useEffect(() => {
+    dispatch(fetchLastReviewAction());
+  }, [dispatch]);
+
+  if (isProductsLoading || isReviewsLoading) {
+    return <Loader />;
+  }
 
   return (
     <Layout header footer>
@@ -39,12 +57,16 @@ function Main(): JSX.Element {
             </ul>
           </div>
         </section>
-        <section className="last-review">
-          <div className="container">
-            <h2 className="last-review__title">последний отзыв</h2>
-            <Review />
-          </div>
-        </section>
+        {review ? (
+          <section className="last-review">
+            <div className="container">
+              <h2 className="last-review__title">последний отзыв</h2>
+              <ReviewItem review={review} withBorder />
+            </div>
+          </section>
+        ) : (
+          <ReviewError onClick={() => void dispatch(fetchLastReviewAction())} />
+        )}
         <Map />
       </>
     </Layout>

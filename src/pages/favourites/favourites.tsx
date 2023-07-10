@@ -11,11 +11,6 @@ function Favourites(): JSX.Element {
 
   const favourites = useAppSelector(getFavourites);
 
-  const handleClearButton = () =>
-    favourites.forEach((product) => {
-      dispatch(deleteFavouriteAction(product.id));
-    });
-
   return (
     <Layout header heading="Избранное" backLink footer>
       {favourites.length ? (
@@ -28,7 +23,10 @@ function Favourites(): JSX.Element {
                 <button
                   className="btn btn--second"
                   type="button"
-                  onClick={handleClearButton}
+                  onClick={() =>
+                    favourites.forEach((product) => {
+                      dispatch(deleteFavouriteAction(product.id));
+                    })}
                 >
                   Очистить
                 </button>
