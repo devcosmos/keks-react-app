@@ -11,3 +11,10 @@ export type Review = {
 }
 
 export type Reviews = Review[];
+
+export type ReviewData = {
+  id: string;
+  positive: string;
+  negative: string;
+  rating: number;
+}
