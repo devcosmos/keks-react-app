@@ -27,6 +27,7 @@ function Product(): JSX.Element {
   const isReviewsError = useAppSelector(getReviewsErrorStatus);
 
   const [showCount, setShowCount] = useState<number>(REVIEW_DISPLAY_COUNT);
+  const [showReviewForm, setShowReviewForm] = useState<boolean>(false);
 
   useEffect(() => {
     if (productId) {
@@ -46,8 +47,8 @@ function Product(): JSX.Element {
   return (
     <Layout header heading="Карточка: пользователь авторизован" backLink footer>
       <>
-        <ProductDetails product={product} />
-        <ReviewForm />
+        <ProductDetails product={product} showReviewForm={showReviewForm} setShowReviewForm={setShowReviewForm} />
+        {showReviewForm && <ReviewForm />}
         <ReviewFilterSort />
         <ReviewList
           reviews={reviews}

@@ -3,16 +3,33 @@ import { getNumberWithSpace } from '../utils';
 import StarRating from '../star-rating/star-rating';
 import ProductDescription from '../product-description/product-description';
 import LikeButton from '../like-button/like-button';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import { useAppSelector } from '../../hooks';
+import { AppRoute, AuthStatus } from '../../consts';
+import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
 type ProductDetailsProps = {
   product: ProductFullInfo;
+  showReviewForm: boolean;
+  setShowReviewForm: (showReviewForm: boolean) => void;
 }
 
-function ProductDetails({product}: ProductDetailsProps): JSX.Element {
+function ProductDetails({product, showReviewForm, setShowReviewForm}: ProductDetailsProps): JSX.Element {
   const {id, title, price, previewImage, previewImageWebp, isNew, weight, description, rating, reviewCount} = product;
 
+  const navigate = useNavigate();
+
+  const isAuth = useAppSelector(getAuthStatus) === AuthStatus.Auth;
+
+
   return (
-    <section className="item-details item-details--form-open">
+    <section
+      className={classNames(
+        'item-details',
+        {'item-details--form-open': showReviewForm}
+      )}
+    >
       <div className="container">
         <div className="item-details__wrapper">
           <div className="item-details__top-wrapper">
@@ -35,7 +52,14 @@ function ProductDetails({product}: ProductDetailsProps): JSX.Element {
               <ProductDescription description={description} />
               <div className="item-details__button-wrapper">
                 <LikeButton id={id} className="item-details__like-button" />
-                <button className="btn btn--second" type="button">Отменить отзыв</button>
+                <button
+                  className="btn btn--second"
+                  type="button"
+                  onClick={() =>
+                    isAuth ? setShowReviewForm(!showReviewForm) : navigate(AppRoute.SignIn)}
+                >
+                  {showReviewForm ? 'Отменить отзыв' : 'Оставить отзыв'}
+                </button>
               </div>
             </div>
           </div>
