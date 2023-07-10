@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addReviewAction, fetchLastReviewAction, fetchReviewsAction } from '../api-actions';
-import { NameSpace } from '../../consts';
+import { NameSpace, RequestStatus } from '../../consts';
 import { Review, Reviews } from '../../types/reviews';
 
 export type ReviewsData = {
@@ -8,6 +8,7 @@ export type ReviewsData = {
   lastReview: Review | null;
   isLoading: boolean;
   isError: boolean;
+  reviewsPublishStatus: RequestStatus;
 };
 
 const initialState: ReviewsData = {
@@ -15,6 +16,7 @@ const initialState: ReviewsData = {
   lastReview: null,
   isLoading: false,
   isError: false,
+  reviewsPublishStatus: RequestStatus.Idle,
 };
 
 export const reviewsData = createSlice({
@@ -38,18 +40,14 @@ export const reviewsData = createSlice({
         state.isError = true;
       })
       .addCase(addReviewAction.pending, (state) => {
-        state.isLoading = true;
-        state.isError = false;
+        state.reviewsPublishStatus = RequestStatus.Pending;
       })
       .addCase(addReviewAction.fulfilled, (state, action) => {
         state.reviews.push(action.payload);
-        state.isLoading = false;
-        state.isError = false;
+        state.reviewsPublishStatus = RequestStatus.Fulfilled;
       })
       .addCase(addReviewAction.rejected, (state) => {
-        // state.reviews = [];
-        state.isLoading = false;
-        state.isError = true;
+        state.reviewsPublishStatus = RequestStatus.Rejected;
       })
       .addCase(fetchLastReviewAction.pending, (state) => {
         state.isLoading = true;
