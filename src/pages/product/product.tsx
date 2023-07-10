@@ -1,6 +1,5 @@
 import Layout from '../../components/layout/layout';
 import ProductDetails from '../../components/product-details/product-details';
-import ReviewFilterSort from '../../components/review-filter-sort/review-filter-sort';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/review-list/review-list';
 import { getProductsErrorStatus } from '../../store/products-data/selectors';
@@ -13,6 +12,8 @@ import { getReviews, getReviewsErrorStatus, getReviewsLoadingStatus } from '../.
 import Loader from '../../components/loader/loader';
 import Error from '../error/error';
 import { REVIEW_DISPLAY_COUNT } from '../../consts';
+import ReviewError from '../../components/review-error/review-error';
+import ReviewEmpty from '../../components/review-empty/review-empty';
 
 function Product(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -36,30 +37,42 @@ function Product(): JSX.Element {
     }
   }, [dispatch, productId]);
 
-  if (isProductsLoading || isReviewsLoading) {
-    return <Loader />;
+  if (productId === undefined || product === null || isProductsError) {
+    return <Error />;
   }
 
-  if (productId === undefined || product === null || isProductsError || isReviewsError) {
-    return <Error />;
+  let review: JSX.Element;
+
+  if (isReviewsLoading) {
+    review = <Loader />;
+  } else if (isReviewsError) {
+    review = <ReviewError onClick={() => void dispatch(fetchReviewsAction(productId))} />;
+  } else if (!reviews.length) {
+    review = <ReviewEmpty />;
+  } else {
+    review = (
+      <ReviewList
+        reviews={reviews}
+        showCount={showCount}
+        setShowCount={setShowCount}
+      />
+    );
   }
 
   return (
     <Layout header heading="Карточка: пользователь авторизован" backLink footer>
       <>
-        <ProductDetails
-          product={product}
-          showReviewForm={showReviewForm}
-          setShowReviewForm={setShowReviewForm}
-        />
-        {showReviewForm &&
-          <ReviewForm productId={productId}/>}
-        <ReviewFilterSort />
-        <ReviewList
-          reviews={reviews}
-          showCount={showCount}
-          setShowCount={setShowCount}
-        />
+        {isProductsLoading ? (
+          <Loader />
+        ) : (
+          <ProductDetails
+            product={product}
+            showReviewForm={showReviewForm}
+            setShowReviewForm={setShowReviewForm}
+          />
+        )}
+        {showReviewForm && <ReviewForm productId={productId}/>}
+        {review}
       </>
     </Layout>
   );
