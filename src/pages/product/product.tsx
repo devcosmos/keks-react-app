@@ -40,15 +40,20 @@ function Product(): JSX.Element {
     return <Loader />;
   }
 
-  if (product === null || isProductsError || isReviewsError) {
+  if (productId === undefined || product === null || isProductsError || isReviewsError) {
     return <Error />;
   }
 
   return (
     <Layout header heading="Карточка: пользователь авторизован" backLink footer>
       <>
-        <ProductDetails product={product} showReviewForm={showReviewForm} setShowReviewForm={setShowReviewForm} />
-        {showReviewForm && <ReviewForm />}
+        <ProductDetails
+          product={product}
+          showReviewForm={showReviewForm}
+          setShowReviewForm={setShowReviewForm}
+        />
+        {showReviewForm &&
+          <ReviewForm productId={productId}/>}
         <ReviewFilterSort />
         <ReviewList
           reviews={reviews}
