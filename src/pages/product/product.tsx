@@ -1,19 +1,17 @@
-import Layout from '../../components/layout/layout';
-import ProductDetails from '../../components/product-details/product-details';
-import ReviewForm from '../../components/review-form/review-form';
-import ReviewList from '../../components/review-list/review-list';
-import { getProductsErrorStatus } from '../../store/products-data/selectors';
-import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getReviewsErrorStatus, getReviewsLoadingStatus } from '../../store/reviews-data/selectors';
 import { fetchProductAction, fetchReviewsAction } from '../../store/api-actions';
 import { getProductsLoadingStatus, getProduct } from '../../store/products-data/selectors';
-import { getReviews, getReviewsErrorStatus, getReviewsLoadingStatus } from '../../store/reviews-data/selectors';
+import { getProductsErrorStatus } from '../../store/products-data/selectors';
+import ProductDetails from '../../components/product-details/product-details';
+import ReviewError from '../../components/review-error/review-error';
+import ReviewForm from '../../components/review-form/review-form';
+import ReviewList from '../../components/review-list/review-list';
+import Layout from '../../components/layout/layout';
 import Loader from '../../components/loader/loader';
 import Error from '../error/error';
-import { REVIEW_DISPLAY_COUNT } from '../../consts';
-import ReviewError from '../../components/review-error/review-error';
-import ReviewEmpty from '../../components/review-empty/review-empty';
 
 function Product(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,13 +19,11 @@ function Product(): JSX.Element {
   const productId = useParams().id;
 
   const product = useAppSelector(getProduct);
-  const reviews = useAppSelector(getReviews);
   const isProductsLoading = useAppSelector(getProductsLoadingStatus);
-  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const isProductsError = useAppSelector(getProductsErrorStatus);
+  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const isReviewsError = useAppSelector(getReviewsErrorStatus);
 
-  const [showCount, setShowCount] = useState<number>(REVIEW_DISPLAY_COUNT);
   const [showReviewForm, setShowReviewForm] = useState<boolean>(false);
 
   useEffect(() => {
@@ -41,22 +37,14 @@ function Product(): JSX.Element {
     return <Error />;
   }
 
-  let review: JSX.Element;
+  let reviews: JSX.Element;
 
   if (isReviewsLoading) {
-    review = <Loader />;
+    reviews = <Loader />;
   } else if (isReviewsError) {
-    review = <ReviewError onClick={() => void dispatch(fetchReviewsAction(productId))} />;
-  } else if (!reviews.length) {
-    review = <ReviewEmpty />;
+    reviews = <ReviewError onClick={() => void dispatch(fetchReviewsAction(productId))} />;
   } else {
-    review = (
-      <ReviewList
-        reviews={reviews}
-        showCount={showCount}
-        setShowCount={setShowCount}
-      />
-    );
+    reviews = <ReviewList />;
   }
 
   return (
@@ -72,7 +60,7 @@ function Product(): JSX.Element {
           />
         )}
         {showReviewForm && <ReviewForm productId={productId}/>}
-        {review}
+        {reviews}
       </>
     </Layout>
   );

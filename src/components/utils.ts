@@ -1,3 +1,6 @@
+import { POSITIVE_RATING_MIN_VALUE, ReviewFilter } from '../consts';
+import { Reviews } from '../types/reviews';
+
 export const getNumberWithSpace = (price: number): string =>
   price.toString().replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ');
 
@@ -19,4 +22,22 @@ export const getNoun = (number: number, one: string, two: string, five: string):
   }
 
   return five;
+};
+
+export const filterByReviews = (reviews: Reviews, type: ReviewFilter): Reviews => {
+  let result: Reviews;
+
+  switch (type) {
+    case ReviewFilter.Any:
+      result = reviews;
+      break;
+    case ReviewFilter.High:
+      result = reviews.filter((review) => review.rating >= POSITIVE_RATING_MIN_VALUE);
+      break;
+    case ReviewFilter.Low:
+      result = reviews.filter((review) => review.rating < POSITIVE_RATING_MIN_VALUE);
+      break;
+  }
+
+  return result;
 };

@@ -42,6 +42,17 @@ export enum RequestStatus {
   Rejected = 'REJECTED',
 }
 
+export enum ReviewSort {
+  Inc = 'inc',
+  Desc = 'desc',
+}
+
+export enum ReviewFilter {
+  Any = 'Любой',
+  High = 'Высокий',
+  Low = 'Низкий',
+}
+
 export enum NameSpace {
   Process = 'PROCESS',
   ProductsData = 'PRODUCTS_DATA',
