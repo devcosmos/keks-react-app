@@ -1,52 +1,98 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useAppDispatch } from '../../hooks';
-import { AuthData } from '../../types/users';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getSingInRequestStatus } from '../../store/user-process/selectors';
 import { loginAction } from '../../store/api-actions';
+import { DEFAULT_DATA_FOR_SIGN_IN, RequestStatus } from '../../consts';
+import { SignFormProps } from '../../types/sign-form';
 import InputWrapper from '../form-input/input-wrapper';
 
 function SignInForm(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const [formData, setFormData] = useState<AuthData>({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState<SignFormProps>(DEFAULT_DATA_FOR_SIGN_IN);
+
+  const singInRequestStatus = useAppSelector(getSingInRequestStatus);
 
   const hanldeFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
-    setFormData({...formData, [name]: value});
+
+    let message = '';
+
+    if (value.length === 0) {
+      message = 'заполните поле';
+    } else if (!formData[name].regex.test(value)) {
+      message = formData[name].error;
+    }
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        value,
+        message,
+        valid: message.length ? 'is-invalid' : 'is-valid',
+      }
+    }));
   };
 
   const hanldeFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(loginAction(formData));
+    if (formData.email.valid === 'is-valid' && formData.password.valid === 'is-valid') {
+      dispatch(loginAction({
+        email: formData.email.value,
+        password: formData.password.value,
+      }));
+    }
   };
 
   return (
     <form action="#" method="post" autoComplete="off" onSubmit={hanldeFormSubmit}>
       <div className="login-page__fields">
-        <InputWrapper label="Введите вашу почту" className="login-page__field">
+        <InputWrapper
+          label="Введите вашу почту"
+          className={formData.email.valid}
+          message={formData.email.message}
+          isSignInPage
+        >
           <input
             onChange={hanldeFieldChange}
-            value={formData.email}
+            value={formData.email.value}
             type="email"
             name="email"
             placeholder="Почта"
+            disabled={singInRequestStatus === RequestStatus.Pending}
             required
           />
         </InputWrapper>
-        <InputWrapper label="Введите ваш пароль" className="login-page__field">
+        <InputWrapper
+          label="Введите ваш пароль"
+          className={formData.password.valid}
+          message={formData.password.message}
+          isSignUpPage
+        >
           <input
             onChange={hanldeFieldChange}
-            value={formData.password}
+            value={formData.password.value}
             type="password"
             name="password"
             placeholder="Пароль"
+            autoComplete="on"
+            disabled={singInRequestStatus === RequestStatus.Pending}
             required
           />
         </InputWrapper>
       </div>
-      <button className="btn login-page__btn btn--large" type="submit">Войти</button>
+      <button
+        className="btn login-page__btn btn--large"
+        type="submit"
+        disabled={
+          singInRequestStatus === RequestStatus.Pending ||
+          formData.email.valid !== 'is-valid' ||
+          formData.password.valid !== 'is-valid'
+        }
+      >
+        Войти
+      </button>
     </form>
   );
 }
