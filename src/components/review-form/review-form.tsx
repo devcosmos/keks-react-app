@@ -1,99 +1,87 @@
-import { ChangeEvent, FormEvent, RefObject, useEffect, useRef, useState } from 'react';
-import { POSITIVE_RATING_MIN_VALUE, RATING_INPUT_COUNT, RequestStatus, TEXT_REVIEW_MAX_LENGTH, TEXT_REVIEW_MIN_LENGTH } from '../../consts';
-import { ReviewData } from '../../types/reviews';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { DEFAULT_DATA_FOR_REVIEW, POSITIVE_RATING_MIN_VALUE, RATING_INPUT_COUNT, RequestStatus, TEXT_REVIEW_MAX_LENGTH, TEXT_REVIEW_MIN_LENGTH } from '../../consts';
+import { ReviewFormData } from '../../types/reviews';
 import InputWrapper from '../form-input/input-wrapper';
 import StarRatingInput from '../star-rating-input/star-rating-input';
-import { addReviewAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getNoun } from '../utils';
 import { getReviewsPublishStatus } from '../../store/reviews-data/selectors';
+import { getNoun } from '../utils';
+import { addReviewAction } from '../../store/api-actions';
 
 type ReviewFormProps = {
   productId: string;
 }
 
 function ReviewForm({productId}: ReviewFormProps): JSX.Element {
-  const baseFormData = {
-    id: productId,
-    positive: '',
-    negative: '',
-    rating: 0,
-  };
-  const baseInputData = {
-    positive: '',
-    negative: '',
-    rating: '',
-  };
-
   const dispatch = useAppDispatch();
 
   const publishReviewsStatus = useAppSelector(getReviewsPublishStatus);
 
-  const [formData, setFormData] = useState<ReviewData>(baseFormData);
-  const [messageData, setMessageData] = useState(baseInputData);
-  const [errorData, setErrorData] = useState(baseInputData);
+  const [formData, setFormData] = useState<ReviewFormData>(DEFAULT_DATA_FOR_REVIEW);
 
-  const refPositive = useRef<HTMLInputElement>(null);
-  const refNegative = useRef<HTMLInputElement>(null);
+  const getMessageAndValid = (length: number, required: boolean): string[] => {
+    let message = '';
+    let valid = '';
 
-  const validateInput = (ref: RefObject<HTMLInputElement>) => {
-    const input = ref.current;
-
-    if (input !== null) {
-      let message = '';
-
-      if (input.value.length || input.required) {
-
-        if (input.value.length === 0) {
-          message = 'заполните поле';
-        } else if (input.value.length < TEXT_REVIEW_MIN_LENGTH) {
-          message = `минимум ${TEXT_REVIEW_MIN_LENGTH} символов`;
-        } else if (input.value.length > TEXT_REVIEW_MAX_LENGTH) {
-          message = `максимум ${TEXT_REVIEW_MAX_LENGTH} символов`;
-        }
-      }
-
-      setMessageData((prevState) => ({ ...prevState, [input.name]: message}));
-      setErrorData((prevState) => ({ ...prevState, [input.name]: message.length ? 'is-invalid' : 'is-valid'}));
-
-      return message.length === 0;
+    const messageCount = TEXT_REVIEW_MAX_LENGTH - length;
+    if (length === 0 && required) {
+      message = 'заполните поле';
+      valid = 'is-invalid';
+    } else if (length > 0 && length < TEXT_REVIEW_MIN_LENGTH) {
+      message = `минимум ${TEXT_REVIEW_MIN_LENGTH} символов`;
+      valid = 'is-invalid';
+    } else if (length > 0 && length > TEXT_REVIEW_MAX_LENGTH) {
+      message = `максимум ${TEXT_REVIEW_MAX_LENGTH} символов`;
+      valid = 'is-invalid';
+    } else if (length > 0) {
+      message = `осталось ${messageCount} ${getNoun(messageCount, 'символ', 'символа', 'символов')}`;
+      valid = 'is-valid';
     }
 
-    return false;
+    return [message, valid];
   };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
 
-    if (name === 'positive' || name === 'negative') {
-      const messageCount = TEXT_REVIEW_MAX_LENGTH - value.length;
-      const message = value.length > 0
-        ? `осталось ${messageCount} ${getNoun(messageCount, 'символ', 'символа', 'символов')}`
-        : '';
+    if (name === 'rating') {
+      const [positiveMessage, positiveValid] = getMessageAndValid(
+        formData.positive.value.toString().length, Number(value) >= POSITIVE_RATING_MIN_VALUE
+      );
+      const [negativeMessage, negativeValid] = getMessageAndValid(
+        formData.negative.value.toString().length, Number(value) < POSITIVE_RATING_MIN_VALUE
+      );
 
-      setMessageData({...messageData, [name]: message});
+      setFormData((prevState) => ({
+        rating: { ...prevState.rating, value },
+        positive: { ...prevState.positive, valid: positiveValid, message: positiveMessage },
+        negative: { ...prevState.negative, valid: negativeValid, message: negativeMessage },
+      }));
+    } else {
+      const [message, valid] = getMessageAndValid(value.length, evt.target.required);
+
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: { ...prevState[name], value, message, valid }
+      }));
     }
-
-    setFormData({...formData, [name]: name === 'rating' ? Number(value) : value});
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (formData.rating === 0) {
-      setMessageData((prevState) => ({...prevState, 'rating': 'Обязательное поле'}));
-    } else {
-      setMessageData((prevState) => ({...prevState, 'rating': ''}));
-      const positive = validateInput(refPositive);
-      const negative = validateInput(refNegative);
-      if (positive && negative) {
-        dispatch(addReviewAction(formData));
-      }
+    if (formData.positive.valid !== 'is-invalid' && formData.negative.valid !== 'is-invalid' && formData.rating.value !== 0) {
+      dispatch(addReviewAction({
+        id: productId,
+        positive: formData.positive.value.toString(),
+        negative: formData.negative.value.toString(),
+        rating: Number(formData.rating.value),
+      }));
     }
   };
 
   useEffect(() => {
     if (publishReviewsStatus === RequestStatus.Fulfilled) {
-      setFormData({id: productId, positive: '', negative: '', rating: 0});
+      setFormData(DEFAULT_DATA_FOR_REVIEW);
     }
   }, [productId, publishReviewsStatus]);
 
@@ -105,46 +93,37 @@ function ReviewForm({productId}: ReviewFormProps): JSX.Element {
           <div className="review-form__form">
             <form action="#" method="post" autoComplete="off" onSubmit={handleFormSubmit} noValidate>
               <div className="review-form__inputs-wrapper">
-                <InputWrapper label="Достоинства" className={errorData.positive} message={messageData.positive}>
+                <InputWrapper label="Достоинства" className={formData.positive.valid} message={formData.positive.message}>
                   <input
-                    ref={refPositive}
                     onChange={handleInputChange}
                     type="text"
-                    value={formData.positive}
+                    value={formData.positive.value}
                     name="positive"
                     placeholder="Достоинства"
-                    required={formData.rating >= POSITIVE_RATING_MIN_VALUE}
+                    required={Number(formData.rating.value) >= POSITIVE_RATING_MIN_VALUE}
                     disabled={publishReviewsStatus === RequestStatus.Pending}
                   />
                 </InputWrapper>
-                <InputWrapper label="Недостатки" className={errorData.negative} message={messageData.negative}>
+                <InputWrapper label="Недостатки" className={formData.negative.valid} message={formData.negative.message}>
                   <input
-                    ref={refNegative}
                     onChange={handleInputChange}
                     type="text"
-                    value={formData.negative}
+                    value={formData.negative.value}
                     name="negative"
                     placeholder="Недостатки"
-                    required={formData.rating < POSITIVE_RATING_MIN_VALUE}
+                    required={Number(formData.rating.value) < POSITIVE_RATING_MIN_VALUE}
                     disabled={publishReviewsStatus === RequestStatus.Pending}
                   />
                 </InputWrapper>
               </div>
               <div className="review-form__submit-wrapper">
                 <div className="review-form__rating-wrapper" style={{ position: 'relative' }}>
-                  {messageData.rating &&
-                    <span
-                      className="custom-input__message"
-                      style={{ left: '0', top: '-20px' }}
-                    >
-                      {messageData.rating}
-                    </span>}
                   <div className="input-star-rating">
                     {[...Array(RATING_INPUT_COUNT).keys()].map((rating, _, arr) => (
                       <StarRatingInput
                         key={rating}
                         rating={arr.length - rating}
-                        currRating={formData.rating}
+                        currRating={Number(formData.rating.value)}
                         onChange={handleInputChange}
                       />
                     ))}
@@ -154,7 +133,12 @@ function ReviewForm({productId}: ReviewFormProps): JSX.Element {
                   <button
                     className="btn review-form__button"
                     type="submit"
-                    disabled={publishReviewsStatus === RequestStatus.Pending}
+                    disabled={
+                      publishReviewsStatus === RequestStatus.Pending ||
+                      formData.positive.valid === 'is-invalid' ||
+                      formData.negative.valid === 'is-invalid' ||
+                      formData.rating.value === 0
+                    }
                   >
                     {publishReviewsStatus === RequestStatus.Pending ? 'Отправка' : 'Отправить отзыв'}
                   </button>

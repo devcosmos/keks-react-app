@@ -1,4 +1,5 @@
 import { Coordinates, Locations } from './types/locations';
+import { ReviewFormData } from './types/reviews';
 import { SignFormProps } from './types/sign-form';
 
 export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
@@ -166,4 +167,20 @@ export const DEFAULT_DATA_FOR_SIGN_UP: SignFormProps = Object.assign({
   },
 }, DEFAULT_DATA_FOR_SIGN_IN);
 
-
+export const DEFAULT_DATA_FOR_REVIEW: ReviewFormData = {
+  positive: {
+    value: '',
+    valid: '',
+    message: '',
+  },
+  negative: {
+    value: '',
+    valid: '',
+    message: '',
+  },
+  rating: {
+    value: 0,
+    valid: '',
+    message: '',
+  },
+};
