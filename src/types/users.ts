@@ -15,3 +15,15 @@ export type RegistrationData = {
   email: string;
   password: string;
 };
+
+type SignFieldData = {
+  value: string;
+  error: string;
+  valid: string;
+  message: string;
+  regex: RegExp;
+}
+
+export type SignFormData = {
+  [key: string]: SignFieldData;
+}

@@ -1,4 +1,4 @@
-import { POSITIVE_RATING_MIN_VALUE, ReviewFilter } from '../consts';
+import { POSITIVE_RATING_MIN_VALUE, ReviewFilter, ReviewSort } from '../consts';
 import { Reviews } from '../types/reviews';
 
 export const getNumberWithSpace = (price: number): string =>
@@ -24,7 +24,7 @@ export const getNoun = (number: number, one: string, two: string, five: string):
   return five;
 };
 
-export const filterByReviews = (reviews: Reviews, type: ReviewFilter): Reviews => {
+export const filterReviewsByRating = (reviews: Reviews, type: ReviewFilter): Reviews => {
   let result: Reviews;
 
   switch (type) {
@@ -40,4 +40,17 @@ export const filterByReviews = (reviews: Reviews, type: ReviewFilter): Reviews =
   }
 
   return result;
+};
+
+export const sortReviewsByDate = (reviews: Reviews, type: ReviewSort): Reviews => {
+  switch (type) {
+    case ReviewSort.Inc:
+      reviews.sort((a, b) => Date.parse(a.isoDate) - Date.parse(b.isoDate));
+      break;
+    case ReviewSort.Desc:
+      reviews.sort((a, b) => Date.parse(b.isoDate) - Date.parse(a.isoDate));
+      break;
+  }
+
+  return reviews;
 };

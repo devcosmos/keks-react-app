@@ -1,5 +1,6 @@
 import { Coordinates, Locations } from './types/locations';
-import { SignFormProps } from './types/sign-form';
+import { ReviewFormData } from './types/reviews';
+import { SignFormData } from './types/users';
 
 export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
 export const CATALOG_PRODUCT_DISPLAY_COUNT = 6;
@@ -139,7 +140,7 @@ export const ProductTypeInRUS:
   [ProductType.BrandMuffin]: 'Фирменный кекс'
 };
 
-export const DEFAULT_DATA_FOR_SIGN_IN: SignFormProps = {
+export const DEFAULT_DATA_FOR_SIGN_IN: SignFormData = {
   email: {
     value: '',
     valid: '',
@@ -156,7 +157,7 @@ export const DEFAULT_DATA_FOR_SIGN_IN: SignFormProps = {
   },
 };
 
-export const DEFAULT_DATA_FOR_SIGN_UP: SignFormProps = Object.assign({
+export const DEFAULT_DATA_FOR_SIGN_UP: SignFormData = Object.assign({
   name: {
     value: '',
     class: '',
@@ -166,4 +167,20 @@ export const DEFAULT_DATA_FOR_SIGN_UP: SignFormProps = Object.assign({
   },
 }, DEFAULT_DATA_FOR_SIGN_IN);
 
-
+export const DEFAULT_DATA_FOR_REVIEW: ReviewFormData = {
+  positive: {
+    value: '',
+    valid: '',
+    message: '',
+  },
+  negative: {
+    value: '',
+    valid: '',
+    message: '',
+  },
+  rating: {
+    value: 0,
+    valid: '',
+    message: '',
+  },
+};

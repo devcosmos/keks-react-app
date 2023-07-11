@@ -18,3 +18,13 @@ export type ReviewData = {
   negative: string;
   rating: number;
 }
+
+type ReviewFieldData = {
+  value: string | number;
+  valid: string;
+  message: string;
+}
+
+export type ReviewFormData = {
+  [key: string]: ReviewFieldData;
+}
