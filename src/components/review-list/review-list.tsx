@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { REVIEW_DISPLAY_COUNT, ReviewFilter, ReviewSort } from '../../consts';
 import { getReviews } from '../../store/reviews-data/selectors';
-import { filterByReviews } from '../utils';
+import { filterReviewsByRating, sortReviewsByDate } from '../utils';
 import ReviewFilterSort from '../review-filter-sort/review-filter-sort';
 import ReviewEmpty from '../review-empty/review-empty';
 import ReviewItem from '../review-item/review-item';
@@ -12,10 +12,10 @@ function ReviewList(): JSX.Element {
   const [sort, setSort] = useState<ReviewSort>(ReviewSort.Desc);
   const [filter, setFilter] = useState<ReviewFilter>(ReviewFilter.Any);
 
-  const reviews = useAppSelector(getReviews);
+  const reviews = useAppSelector(getReviews).slice();
 
-  const sortReviews = sort === ReviewSort.Desc ? reviews.slice().reverse() : reviews;
-  const filteredReviews = filterByReviews(sortReviews, filter);
+  const sortReviews = sortReviewsByDate(reviews, sort);
+  const filteredReviews = filterReviewsByRating(sortReviews, filter);
 
   if (!reviews.length) {
     return (
