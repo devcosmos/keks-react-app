@@ -11,7 +11,7 @@ function ReviewEmpty({title, className, children}: ReviewEmptyProps): JSX.Elemen
     <section
       className={classNames(
         'empty-results',
-        [className]
+        className,
       )}
     >
       <div className="container">
