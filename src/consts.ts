@@ -1,4 +1,5 @@
 import { Coordinates, Locations } from './types/locations';
+import { SignFormProps } from './types/sign-form';
 
 export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
 export const CATALOG_PRODUCT_DISPLAY_COUNT = 6;
@@ -137,3 +138,32 @@ export const ProductTypeInRUS:
   [ProductType.ChocolateMuffin]: 'Шоколадный кекс',
   [ProductType.BrandMuffin]: 'Фирменный кекс'
 };
+
+export const DEFAULT_DATA_FOR_SIGN_IN: SignFormProps = {
+  email: {
+    value: '',
+    valid: '',
+    message: '',
+    error: 'почта содержит ошибки',
+    regex: /^([a-z0-9]+(?:[._-][a-z0-9]+)*)@([a-z0-9]+(?:[.-][a-z0-9]+)*\.[a-z]{2,})$/i,
+  },
+  password: {
+    value: '',
+    valid: '',
+    message: '',
+    error: 'минимум одну букву и одну цифру, без пробелов',
+    regex: /^((?=\S*?[a-zA-Z])(?=\S*?[0-9]).{1,})\S$/,
+  },
+};
+
+export const DEFAULT_DATA_FOR_SIGN_UP: SignFormProps = Object.assign({
+  name: {
+    value: '',
+    class: '',
+    message: '',
+    error: 'минимум одну букву',
+    regex: /^.{1,40}$/,
+  },
+}, DEFAULT_DATA_FOR_SIGN_IN);
+
+
