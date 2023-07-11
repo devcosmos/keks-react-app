@@ -3,13 +3,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getSingInRequestStatus } from '../../store/user-process/selectors';
 import { loginAction } from '../../store/api-actions';
 import { DEFAULT_DATA_FOR_SIGN_IN, RequestStatus } from '../../consts';
-import { SignFormProps } from '../../types/sign-form';
 import InputWrapper from '../form-input/input-wrapper';
+import { SignFormData } from '../../types/users';
 
 function SignInForm(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const [formData, setFormData] = useState<SignFormProps>(DEFAULT_DATA_FOR_SIGN_IN);
+  const [formData, setFormData] = useState<SignFormData>(DEFAULT_DATA_FOR_SIGN_IN);
 
   const singInRequestStatus = useAppSelector(getSingInRequestStatus);
 
