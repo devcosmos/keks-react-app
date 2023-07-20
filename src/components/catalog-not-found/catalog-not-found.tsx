@@ -1,3 +1,5 @@
+import { PROJECT_NAME } from '../../consts';
+
 function CatalogNotFound() {
   return (
     <section className="not-found">
@@ -14,7 +16,7 @@ function CatalogNotFound() {
             </div>
           </div>
           <div className="not-found__img-wrapper">
-            <img src="/img/svg/not-found-keks.svg" width="719" height="607" alt="Картика кота." />
+            <img src={`/${PROJECT_NAME}/img/svg/not-found-keks.svg`} width="719" height="607" alt="Картика кота." />
           </div>
         </div>
       </div>

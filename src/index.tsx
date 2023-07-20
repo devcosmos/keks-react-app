@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HistoryRouter from './components/history-route/history-route';
 import browserHistory from './browser-history';
+import { PROJECT_NAME } from './consts';
 
 store.dispatch(fetchProductsAction());
 store.dispatch(fetchCategoriesAction());
@@ -20,7 +21,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HistoryRouter history={browserHistory}>
+      <HistoryRouter history={browserHistory} basename={PROJECT_NAME}>
         <ToastContainer />
         <App />
       </HistoryRouter>

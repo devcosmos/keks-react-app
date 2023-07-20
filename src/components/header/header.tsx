@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
-import { AppRoute } from '../../consts';
+import { AppRoute, PROJECT_NAME } from '../../consts';
 import { getCurrentUser } from '../../store/user-process/selectors';
 import HeaderButtons from '../header-auth-buttons/header-auth-buttons';
 
@@ -19,7 +19,7 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__inner">
           <Link className="header__logo" to={AppRoute.Main}>
-            <img src="/img/svg/logo.svg" width="170" height="69" alt="Кондитерская кекс" />
+            <img src={`/${PROJECT_NAME}/img/svg/logo.svg`} width="170" height="69" alt="Кондитерская кекс" />
           </Link>
           {isAuth && (
             <div className="header__user-info-wrap">

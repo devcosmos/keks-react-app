@@ -2,6 +2,8 @@ import { Coordinates, Locations } from './types/locations';
 import { ReviewFormData } from './types/reviews';
 import { SignFormData } from './types/users';
 
+export const PROJECT_NAME = process.env.REACT_APP_PROJECT_NAME ?? '';
+
 export const MAIN_PRODUCT_DISPLAY_COUNT = 3;
 export const CATALOG_PRODUCT_DISPLAY_COUNT = 6;
 export const REVIEW_DISPLAY_COUNT = 2;

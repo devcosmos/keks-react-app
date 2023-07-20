@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { AppRoute, PROJECT_NAME } from '../../consts';
 
 function FavouritesEmpty() {
   return (
@@ -19,7 +19,7 @@ function FavouritesEmpty() {
             </div>
           </div>
           <div className="empty-favorites__img-wrapper">
-            <img src="/img/svg/bg-keks-empty-favorites.svg" width="680" height="687" alt="Картика кота." />
+            <img src={`/${PROJECT_NAME}/img/svg/bg-keks-empty-favorites.svg`} width="680" height="687" alt="Картика кота." />
           </div>
         </div>
       </div>

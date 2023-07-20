@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { AppRoute, PROJECT_NAME } from '../../consts';
 
 function Hero(): JSX.Element {
   return (
@@ -8,7 +8,7 @@ function Hero(): JSX.Element {
         <div className="hero__img-wrapper">
           <img
             className="hero__img"
-            src="/img/svg/hero-keks.svg"
+            src={`/${PROJECT_NAME}/img/svg/hero-keks.svg`}
             width="727"
             height="569"
             alt="Картика кота."
