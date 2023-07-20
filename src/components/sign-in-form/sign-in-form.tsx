@@ -13,7 +13,7 @@ function SignInForm(): JSX.Element {
 
   const singInRequestStatus = useAppSelector(getSingInRequestStatus);
 
-  const hanldeFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
 
     let message = '';
@@ -35,7 +35,7 @@ function SignInForm(): JSX.Element {
     }));
   };
 
-  const hanldeFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (formData.email.valid === 'is-valid' && formData.password.valid === 'is-valid') {
       dispatch(loginAction({
@@ -46,7 +46,7 @@ function SignInForm(): JSX.Element {
   };
 
   return (
-    <form action="#" method="post" autoComplete="off" onSubmit={hanldeFormSubmit}>
+    <form action="#" method="post" autoComplete="off" onSubmit={handleFormSubmit}>
       <div className="login-page__fields">
         <InputWrapper
           label="Введите вашу почту"
@@ -55,7 +55,7 @@ function SignInForm(): JSX.Element {
           isSignInPage
         >
           <input
-            onChange={hanldeFieldChange}
+            onChange={handleFieldChange}
             value={formData.email.value}
             type="email"
             name="email"
@@ -71,7 +71,7 @@ function SignInForm(): JSX.Element {
           isSignUpPage
         >
           <input
-            onChange={hanldeFieldChange}
+            onChange={handleFieldChange}
             value={formData.password.value}
             type="password"
             name="password"

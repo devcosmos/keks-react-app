@@ -13,7 +13,7 @@ function SignUpForm(): JSX.Element {
 
   const singUpRequestStatus = useAppSelector(getSingUpRequestStatus);
 
-  const hanldeFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
 
     let message = '';
@@ -35,7 +35,7 @@ function SignUpForm(): JSX.Element {
     }));
   };
 
-  const hanldeFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (formData.name.valid === 'is-valid' &&
         formData.email.valid === 'is-valid' &&
@@ -55,7 +55,7 @@ function SignUpForm(): JSX.Element {
   }, [singUpRequestStatus]);
 
   return (
-    <form method="post" autoComplete="off" onSubmit={hanldeFormSubmit} noValidate>
+    <form method="post" autoComplete="off" onSubmit={handleFormSubmit} noValidate>
       <div className="register-page__fields">
         <InputWrapper
           label="Введите ваше имя"
@@ -64,7 +64,7 @@ function SignUpForm(): JSX.Element {
           isSignUpPage
         >
           <input
-            onChange={hanldeFieldChange}
+            onChange={handleFieldChange}
             value={formData.name.value}
             type="text"
             name="name"
@@ -80,7 +80,7 @@ function SignUpForm(): JSX.Element {
           isSignUpPage
         >
           <input
-            onChange={hanldeFieldChange}
+            onChange={handleFieldChange}
             value={formData.email.value}
             type="email"
             name="email"
@@ -96,7 +96,7 @@ function SignUpForm(): JSX.Element {
           isSignUpPage
         >
           <input
-            onChange={hanldeFieldChange}
+            onChange={handleFieldChange}
             value={formData.password.value}
             type="password"
             name="password"
