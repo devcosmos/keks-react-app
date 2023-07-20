@@ -21,21 +21,21 @@ export const LOCATIONS: Locations = [
     address: 'ул. Профессора Попова',
     latitude: 59.970969,
     longitude: 30.316252,
-    icon: '/img/content/map-marker2.svg',
+    icon: `/${PROJECT_NAME}/img/content/map-marker2.svg`,
   }, {
     id: 'second-sweetshop',
     name: 'Кондитерская 2',
     address: 'Вязовая ул.',
     latitude: 59.967947,
     longitude: 30.274708,
-    icon: '/img/content/map-marker2.svg',
+    icon: `/${PROJECT_NAME}/img/content/map-marker2.svg`,
   }, {
     id: 'industry',
     name: 'Производство',
     address: 'ул. Ленина, 10',
     latitude: 59.960380,
     longitude: 30.308725,
-    icon: '/img/content/map-marker1.svg',
+    icon: `/${PROJECT_NAME}/img/content/map-marker1.svg`,
   },
 ];
 
