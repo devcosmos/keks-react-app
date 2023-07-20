@@ -1,11 +1,11 @@
 # Проект для грейдирования «Кондитерская Кекс»
 
-* Студент: [Валерий Литвинов](https://up.htmlacademy.ru/react/12/user/1207349).
-* Организатор учебного курса: [HtmlAcademy](https://htmlacademy.ru/).
-* Название курса: [React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react).
-* Демо проекта: [Keks](https://devcosmos.github.io/keks-react-app/).
-* Макет: [Figma](https://www.figma.com/file/X0Td4trRV9nGR9qxMzKxmU/%5BWIP%5DГрейдирование%3A-React.-Разработка-сложных-клиентских-приложений?type=design&node-id=59%3A103&mode=design&t=jbZiOylE1qcpp6So-1).
-* [Сертификат](https://assets.htmlacademy.ru/certificates/intensive/383/1207349.pdf).
+* Студент: [Валерий Литвинов](https://up.htmlacademy.ru/react/12/user/1207349)
+* Организатор учебного курса: [HtmlAcademy](https://htmlacademy.ru/)
+* Название курса: [React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react)
+* Демо проекта: [Keks](https://devcosmos.github.io/keks-react-app/)
+* Макет: [Figma](https://www.figma.com/file/X0Td4trRV9nGR9qxMzKxmU/%5BWIP%5DГрейдирование%3A-React.-Разработка-сложных-клиентских-приложений?type=design&node-id=59%3A103&mode=design&t=jbZiOylE1qcpp6So-1)
+* [Сертификат](https://assets.htmlacademy.ru/certificates/intensive/383/1207349.pdf)
 
 ---
 
